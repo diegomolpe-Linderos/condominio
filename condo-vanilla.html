@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Control de Acceso - Condominio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f3f4f6;min-height:100vh;}
+input,select,button{font-family:inherit;}
+.hidden{display:none!important;}
+
+/* LOGIN */
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f3f4f6;}
+.loginCard{background:#fff;border-radius:16px;padding:36px;width:320px;box-shadow:0 4px 24px rgba(0,0,0,0.08);}
+.loginCard .icon{text-align:center;font-size:48px;margin-bottom:8px;}
+.loginCard h2{text-align:center;color:#111827;margin-bottom:4px;}
+.loginCard p{text-align:center;color:#6b7280;font-size:14px;margin-bottom:24px;}
+.hint{font-size:12px;color:#6b7280;text-align:center;margin-top:12px;}
+
+/* HEADER */
+#header{background:#1a56db;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;}
+#header .title{font-weight:700;font-size:17px;}
+#header .sub{font-size:12px;opacity:0.85;margin-top:2px;}
+#logoutBtn{background:transparent;border:2px solid #fff;color:#fff;padding:6px 14px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;}
+
+/* TABS */
+#tabs{display:flex;background:#fff;border-bottom:1px solid #e5e7eb;}
+.tab{flex:1;padding:12px 0;border:none;background:transparent;font-weight:600;font-size:13px;cursor:pointer;color:#6b7280;border-bottom:3px solid transparent;}
+.tab.active{color:#1a56db;border-bottom:3px solid #1a56db;}
+
+/* CONTENT */
+#content{padding:16px;max-width:600px;margin:0 auto;}
+.section{display:none;}
+.section.active{display:block;}
+h3{color:#111827;margin:8px 0 16px;}
+
+/* FORM */
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:13px;font-weight:600;color:#111827;margin-bottom:4px;}
+.req{color:#e02424;}
+.field input,.field select{width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:8px;font-size:15px;outline:none;color:#111827;background:#fff;}
+.field input:disabled{background:#f9fafb;color:#6b7280;}
+.field input.error-border{border-color:#e02424;}
+.field input.ok-border{border-color:#057a55;}
+.row{display:flex;gap:12px;}
+.row .field{flex:1;}
+.check-label{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;font-weight:600;color:#111827;}
+.check-label input[type=checkbox]{width:18px;height:18px;cursor:pointer;}
+
+/* BUTTONS */
+.btn{padding:10px 20px;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer;border:none;}
+.btn-primary{background:#1a56db;color:#fff;width:100%;margin-top:4px;}
+.btn-primary:hover{background:#1447c0;}
+
+/* ALERTS */
+.alert-ok{background:#d1fae5;border:1px solid #057a55;border-radius:8px;padding:12px;margin-bottom:16px;color:#057a55;font-weight:600;display:none;}
+.alert-ok.show{display:block;}
+.alert-err{color:#e02424;font-size:13px;margin-bottom:10px;display:none;}
+.alert-err.show{display:block;}
+.found-msg{color:#057a55;font-size:12px;margin-top:4px;display:none;}
+.found-msg.show{display:block;}
+
+/* SEARCH */
+.search-input{width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:8px;font-size:14px;margin-bottom:16px;outline:none;}
+
+/* LOG CARDS */
+.log-card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,0.06);border-left:4px solid #1a56db;}
+.log-card .log-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.log-card .log-name{font-weight:700;font-size:16px;color:#111827;}
+.log-card .log-info{font-size:13px;color:#6b7280;line-height:1.9;}
+.badge{border-radius:20px;padding:2px 10px;font-size:12px;font-weight:600;}
+.badge-visita{background:#dbeafe;color:#1a56db;border:1px solid #93c5fd;}
+.badge-comida{background:#fef3c7;color:#d97706;border:1px solid #fcd34d;}
+.badge-paquete{background:#d1fae5;color:#057a55;border:1px solid #6ee7b7;}
+.empty{color:#6b7280;text-align:center;padding:20px 0;}
+
+/* GUARD CARDS */
+.guard-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.guard-top{display:flex;justify-content:space-between;align-items:center;}
+.guard-name{font-weight:700;font-size:16px;color:#111827;}
+.guard-shift{font-size:13px;color:#6b7280;}
+.guard-count{text-align:center;}
+.guard-count .num{font-size:28px;font-weight:700;color:#1a56db;}
+.guard-count .lbl{font-size:11px;color:#6b7280;}
+.guard-logs{margin-top:10px;border-top:1px solid #e5e7eb;padding-top:10px;}
+.guard-log-item{font-size:13px;color:#6b7280;margin-bottom:4px;}
+.more{font-size:12px;color:#1a56db;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="loginCard">
+    <div class="icon">🏢</div>
+    <h2>Control de Acceso</h2>
+    <p>Condominio</p>
+    <div class="field"><label>Usuario</label><input id="loginUser" placeholder="ej: carlos"/></div>
+    <div class="field"><label>Contraseña</label><input id="loginPass" type="password" placeholder="••••"/></div>
+    <div id="loginErr" class="alert-err show" style="display:none"></div>
+    <button class="btn btn-primary" onclick="doLogin()">Ingresar</button>
+    <p class="hint">Usuarios: carlos / pedro / luis · pass: 1234</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appScreen" class="hidden">
+  <div id="header">
+    <div>
+      <div class="title">🏢 Control de Acceso</div>
+      <div class="sub" id="guardInfo"></div>
+    </div>
+    <button id="logoutBtn" onclick="doLogout()">Salir</button>
+  </div>
+  <div id="tabs">
+    <button class="tab active" onclick="switchTab('register',this)">➕ Registrar</button>
+    <button class="tab" onclick="switchTab('history',this)">📋 Historial</button>
+    <button class="tab" onclick="switchTab('guards',this)">👮 Guardias</button>
+  </div>
+  <div id="content">
+
+    <!-- REGISTER -->
+    <div id="registerSection" class="section active">
+      <h3>Registrar Ingreso</h3>
+      <div id="regOk" class="alert-ok">✅ Visita registrada exitosamente</div>
+      <div class="field">
+        <label>RUT <span class="req">*</span></label>
+        <input id="fRut" placeholder="ej: 12345678-9" oninput="handleRut(this)"/>
+        <div id="rutFound" class="found-msg">✅ Visita encontrada en base de datos</div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Nombre <span class="req">*</span></label><input id="fFirst" placeholder="ej: Ana"/></div>
+        <div class="field"><label>Apellido <span class="req">*</span></label><input id="fLast" placeholder="ej: García"/></div>
+      </div>
+      <div class="field">
+        <label>Tipo de visita <span class="req">*</span></label>
+        <select id="fType">
+          <option value="">-- Seleccionar --</option>
+          <option>Visita</option>
+          <option>Delivery comida</option>
+          <option>Delivery paquete</option>
+        </select>
+      </div>
+      <div class="field"><label>Casa / Departamento N° <span class="req">*</span></label><input id="fUnit" placeholder="ej: 204"/></div>
+      <div class="field">
+        <label class="check-label">
+          <input type="checkbox" id="fVehicle" onchange="toggleVehicle()"/>
+          ¿Ingresa en vehículo?
+        </label>
+      </div>
+      <div class="field hidden" id="plateField">
+        <label>Patente del vehículo <span class="req">*</span></label>
+        <input id="fPlate" placeholder="ej: AB-1234 o ABCD12" oninput="this.value=this.value.toUpperCase()"/>
+      </div>
+      <div id="regErr" class="alert-err"></div>
+      <button class="btn btn-primary" onclick="submitRegister()">✅ Registrar Ingreso</button>
+    </div>
+
+    <!-- HISTORY -->
+    <div id="historySection" class="section">
+      <h3>Historial de Accesos</h3>
+      <input class="search-input" id="searchInput" placeholder="🔍 Buscar por nombre, RUT, depto, patente..." oninput="renderHistory()"/>
+      <div id="logList"></div>
+    </div>
+
+    <!-- GUARDS -->
+    <div id="guardsSection" class="section">
+      <h3>Panel de Guardias</h3>
+      <div id="guardList"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const GUARDS = [
+  {id:1,name:"Carlos Méndez",username:"carlos",password:"1234",shift:"Mañana"},
+  {id:2,name:"Pedro Soto",   username:"pedro",  password:"1234",shift:"Tarde"},
+  {id:3,name:"Luis Rojas",   username:"luis",   password:"1234",shift:"Noche"},
+];
+
+let visitors = [
+  {rut:"12345678-9",firstName:"Ana",  lastName:"García"},
+  {rut:"98765432-1",firstName:"Mario",lastName:"Torres"},
+];
+
+let logs = [
+  {id:1,rut:"12345678-9",firstName:"Ana",  lastName:"García",type:"Visita",         unit:"204",vehicle:false,plate:"",       guardId:1,guardName:"Carlos Méndez",shift:"Mañana",date:"2026-02-16",time:"09:15"},
+  {id:2,rut:"98765432-1",firstName:"Mario",lastName:"Torres",type:"Delivery comida",unit:"101",vehicle:true, plate:"AB-1234",guardId:2,guardName:"Pedro Soto",   shift:"Tarde", date:"2026-02-16",time:"14:30"},
+];
+
+let currentGuard = null;
+
+function formatRut(v){
+  const c=v.replace(/[^0-9kK]/g,"").toUpperCase();
+  if(c.length<=1) return c;
+  return c.slice(0,-1)+"-"+c.slice(-1);
+}
+
+function nowDT(){
+  const d=new Date();
+  return {date:d.toISOString().slice(0,10),time:d.toTimeString().slice(0,5)};
+}
+
+function typeClass(t){
+  if(t==="Visita") return "badge-visita";
+  if(t==="Delivery comida") return "badge-comida";
+  return "badge-paquete";
+}
+
+function typeBorderColor(t){
+  if(t==="Visita") return "#1a56db";
+  if(t==="Delivery comida") return "#d97706";
+  return "#057a55";
+}
+
+// LOGIN
+function doLogin(){
+  const u=document.getElementById("loginUser").value.trim();
+  const p=document.getElementById("loginPass").value;
+  const g=GUARDS.find(g=>g.username===u&&g.password===p);
+  const errEl=document.getElementById("loginErr");
+  if(!g){errEl.textContent="Usuario o contraseña incorrectos.";errEl.style.display="block";return;}
+  errEl.style.display="none";
+  currentGuard=g;
+  document.getElementById("loginScreen").classList.add("hidden");
+  document.getElementById("appScreen").classList.remove("hidden");
+  document.getElementById("guardInfo").textContent="👮 "+g.name+" · Turno "+g.shift;
+  clearForm();
+}
+
+function doLogout(){
+  currentGuard=null;
+  document.getElementById("loginScreen").classList.remove("hidden");
+  document.getElementById("appScreen").classList.add("hidden");
+  document.getElementById("loginUser").value="";
+  document.getElementById("loginPass").value="";
+}
+
+// TABS
+function switchTab(name,btn){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  btn.classList.add("active");
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(name+"Section").classList.add("active");
+  if(name==="history") renderHistory();
+  if(name==="guards") renderGuards();
+}
+
+// REGISTER
+function handleRut(input){
+  const rut=formatRut(input.value);
+  input.value=rut;
+  const found=visitors.find(v=>v.rut===rut);
+  const rutFoundEl=document.getElementById("rutFound");
+  const fFirst=document.getElementById("fFirst");
+  const fLast=document.getElementById("fLast");
+  if(found){
+    fFirst.value=found.firstName; fFirst.disabled=true;
+    fLast.value=found.lastName;   fLast.disabled=true;
+    input.classList.add("ok-border");
+    rutFoundEl.classList.add("show");
+  } else {
+    fFirst.disabled=false; fLast.disabled=false;
+    input.classList.remove("ok-border");
+    rutFoundEl.classList.remove("show");
+  }
+}
+
+function toggleVehicle(){
+  const checked=document.getElementById("fVehicle").checked;
+  const pf=document.getElementById("plateField");
+  if(checked) pf.classList.remove("hidden");
+  else { pf.classList.add("hidden"); document.getElementById("fPlate").value=""; }
+}
+
+function clearForm(){
+  ["fRut","fFirst","fLast","fUnit","fPlate"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("fType").value="";
+  document.getElementById("fVehicle").checked=false;
+  document.getElementById("plateField").classList.add("hidden");
+  document.getElementById("fFirst").disabled=false;
+  document.getElementById("fLast").disabled=false;
+  document.getElementById("fRut").classList.remove("ok-border");
+  document.getElementById("rutFound").classList.remove("show");
+  document.getElementById("regErr").classList.remove("show");
+  document.getElementById("regErr").textContent="";
+}
+
+function submitRegister(){
+  const rut=document.getElementById("fRut").value.trim();
+  const firstName=document.getElementById("fFirst").value.trim();
+  const lastName=document.getElementById("fLast").value.trim();
+  const type=document.getElementById("fType").value;
+  const unit=document.getElementById("fUnit").value.trim();
+  const vehicle=document.getElementById("fVehicle").checked;
+  const plate=document.getElementById("fPlate").value.trim();
+  const errEl=document.getElementById("regErr");
+
+  let err="";
+  if(!rut||!firstName||!lastName) err="Nombre, apellido y RUT son obligatorios.";
+  else if(!type) err="Selecciona el tipo de visita.";
+  else if(!unit) err="Ingresa el número de casa o departamento.";
+  else if(vehicle&&!plate) err="La patente es obligatoria si ingresa en vehículo.";
+
+  if(err){errEl.textContent="⚠️ "+err;errEl.classList.add("show");return;}
+  errEl.classList.remove("show");
+
+  const {date,time}=nowDT();
+  logs.unshift({id:Date.now(),rut,firstName,lastName,type,unit,vehicle,plate,guardId:currentGuard.id,guardName:currentGuard.name,shift:currentGuard.shift,date,time});
+  if(!visitors.find(v=>v.rut===rut)) visitors.push({rut,firstName,lastName});
+
+  clearForm();
+  const ok=document.getElementById("regOk");
+  ok.classList.add("show");
+  setTimeout(()=>ok.classList.remove("show"),3000);
+}
+
+// HISTORY
+function renderHistory(){
+  const q=document.getElementById("searchInput").value.toLowerCase();
+  const list=document.getElementById("logList");
+  const filtered=logs.filter(l=>!q||[l.firstName,l.lastName,l.rut,l.unit,l.plate||""].join(" ").toLowerCase().includes(q));
+  if(filtered.length===0){list.innerHTML='<p class="empty">Sin resultados</p>';return;}
+  list.innerHTML=filtered.map(l=>`
+    <div class="log-card" style="border-left-color:${typeBorderColor(l.type)}">
+      <div class="log-top">
+        <span class="log-name">${l.firstName} ${l.lastName}</span>
+        <span class="badge ${typeClass(l.type)}">${l.type}</span>
+      </div>
+      <div class="log-info">
+        🪪 ${l.rut} &nbsp;·&nbsp; 🏠 Depto/Casa ${l.unit}<br/>
+        ${l.vehicle?`🚗 Patente: <b style="color:#111827">${l.plate}</b> &nbsp;·&nbsp; `:""}
+        📅 ${l.date} ${l.time}<br/>
+        👮 ${l.guardName} · Turno ${l.shift}
+      </div>
+    </div>
+  `).join("");
+}
+
+// GUARDS
+function renderGuards(){
+  const list=document.getElementById("guardList");
+  list.innerHTML=GUARDS.map(g=>{
+    const gl=logs.filter(l=>l.guardId===g.id);
+    const items=gl.slice(0,3).map(l=>`<div class="guard-log-item">• ${l.firstName} ${l.lastName} → Depto ${l.unit} · ${l.date} ${l.time}</div>`).join("");
+    const more=gl.length>3?`<div class="more">+${gl.length-3} más...</div>`:"";
+    const logsHtml=gl.length>0?`<div class="guard-logs">${items}${more}</div>`:"";
+    return `
+      <div class="guard-card">
+        <div class="guard-top">
+          <div><div class="guard-name">👮 ${g.name}</div><div class="guard-shift">Turno: ${g.shift}</div></div>
+          <div class="guard-count"><div class="num">${gl.length}</div><div class="lbl">registros</div></div>
+        </div>
+        ${logsHtml}
+      </div>
+    `;
+  }).join("");
+}
+
+// Enter key en login
+document.getElementById("loginPass").addEventListener("keydown",e=>{if(e.key==="Enter") doLogin();});
+document.getElementById("loginUser").addEventListener("keydown",e=>{if(e.key==="Enter") doLogin();});
+</script>
+</body>
+</html>
