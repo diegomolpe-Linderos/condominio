@@ -3,55 +3,67 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Control de Acceso - Condominio</title>
+<title>Control de Acceso - Alto Sacramento 3</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f3f4f6;min-height:100vh;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f4f8;min-height:100vh;display:flex;flex-direction:column;}
 input,select,button{font-family:inherit;}
+input:disabled{background:#f9fafb;color:#6b7280;}
 .hidden{display:none!important;}
 
 /* LOGIN */
-#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f3f4f6;}
-.loginCard{background:#fff;border-radius:16px;padding:36px;width:320px;box-shadow:0 4px 24px rgba(0,0,0,0.08);}
-.loginCard .icon{text-align:center;font-size:48px;margin-bottom:8px;}
-.loginCard h2{text-align:center;color:#111827;margin-bottom:4px;}
-.loginCard p{text-align:center;color:#6b7280;font-size:14px;margin-bottom:24px;}
-.hint{font-size:12px;color:#6b7280;text-align:center;margin-top:12px;}
+#loginScreen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#0f2554 0%,#1a3a7a 100%);}
+.loginCard{background:#fff;border-radius:20px;padding:40px 36px;width:330px;box-shadow:0 8px 40px rgba(0,0,0,0.25);}
+.loginLogo{text-align:center;margin-bottom:20px;}
+.loginLogo .icon{font-size:48px;}
+.loginLogo h1{font-size:18px;font-weight:800;color:#0f2554;margin-top:8px;}
+.loginLogo h2{font-size:13px;font-weight:500;color:#6b7280;margin-top:2px;}
+.loginHint{font-size:12px;color:#9ca3af;text-align:center;margin-top:14px;}
+.loginBrand{margin-top:28px;text-align:center;font-size:11px;color:rgba(255,255,255,0.5);}
+.loginBrand span{color:rgba(255,255,255,0.8);font-weight:600;}
 
 /* HEADER */
-#header{background:#1a56db;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;}
-#header .title{font-weight:700;font-size:17px;}
-#header .sub{font-size:12px;opacity:0.85;margin-top:2px;}
-#logoutBtn{background:transparent;border:2px solid #fff;color:#fff;padding:6px 14px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;}
+#header{background:linear-gradient(90deg,#0f2554 0%,#1a3a7a 100%);color:#fff;padding:0 20px;}
+.headerTop{display:flex;justify-content:space-between;align-items:center;padding:12px 0 8px;}
+.headerTitle{font-size:11px;font-weight:600;opacity:0.7;letter-spacing:1px;text-transform:uppercase;}
+.headerName{font-size:19px;font-weight:800;letter-spacing:0.3px;}
+.headerSub{font-size:12px;opacity:0.75;margin-top:2px;}
+#logoutBtn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:6px 14px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;}
+#logoutBtn:hover{background:rgba(255,255,255,0.25);}
 
 /* TABS */
-#tabs{display:flex;background:#fff;border-bottom:1px solid #e5e7eb;}
-.tab{flex:1;padding:12px 0;border:none;background:transparent;font-weight:600;font-size:13px;cursor:pointer;color:#6b7280;border-bottom:3px solid transparent;}
-.tab.active{color:#1a56db;border-bottom:3px solid #1a56db;}
+#tabs{display:flex;background:#0f2554;}
+.tab{flex:1;padding:11px 0;border:none;background:transparent;font-weight:600;font-size:12px;cursor:pointer;color:rgba(255,255,255,0.55);border-bottom:3px solid transparent;transition:all 0.2s;}
+.tab.active{color:#fff;border-bottom:3px solid #60a5fa;}
+.tab:hover{color:rgba(255,255,255,0.85);}
 
 /* CONTENT */
-#content{padding:16px;max-width:600px;margin:0 auto;}
+#content{padding:16px;max-width:600px;margin:0 auto;width:100%;flex:1;}
 .section{display:none;}
 .section.active{display:block;}
-h3{color:#111827;margin:8px 0 16px;}
+h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
+
+/* CARDS */
+.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(15,37,84,0.08);}
 
 /* FORM */
 .field{margin-bottom:14px;}
-.field label{display:block;font-size:13px;font-weight:600;color:#111827;margin-bottom:4px;}
+.field label{display:block;font-size:13px;font-weight:600;color:#1e293b;margin-bottom:4px;}
 .req{color:#e02424;}
-.field input,.field select{width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:8px;font-size:15px;outline:none;color:#111827;background:#fff;}
+.field input,.field select{width:100%;padding:10px 12px;border:1px solid #dde3f0;border-radius:9px;font-size:15px;outline:none;color:#111827;background:#fff;transition:border 0.2s;}
+.field input:focus,.field select:focus{border-color:#0f2554;}
 .field input:disabled{background:#f9fafb;color:#6b7280;}
 .field input.error-border{border-color:#e02424;}
 .field input.ok-border{border-color:#057a55;}
 .row{display:flex;gap:12px;}
 .row .field{flex:1;}
-.check-label{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;font-weight:600;color:#111827;}
-.check-label input[type=checkbox]{width:18px;height:18px;cursor:pointer;}
+.check-label{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;font-weight:600;color:#1e293b;}
+.check-label input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:#0f2554;}
 
 /* BUTTONS */
-.btn{padding:10px 20px;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer;border:none;}
-.btn-primary{background:#1a56db;color:#fff;width:100%;margin-top:4px;}
-.btn-primary:hover{background:#1447c0;}
+.btn{padding:10px 20px;border-radius:9px;font-weight:700;font-size:15px;cursor:pointer;border:none;transition:background 0.2s;}
+.btn-primary{background:#0f2554;color:#fff;width:100%;margin-top:4px;}
+.btn-primary:hover{background:#1a3a7a;}
 
 /* ALERTS */
 .alert-ok{background:#d1fae5;border:1px solid #057a55;border-radius:8px;padding:12px;margin-bottom:16px;color:#057a55;font-weight:600;display:none;}
@@ -61,31 +73,47 @@ h3{color:#111827;margin:8px 0 16px;}
 .found-msg{color:#057a55;font-size:12px;margin-top:4px;display:none;}
 .found-msg.show{display:block;}
 
-/* SEARCH */
-.search-input{width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:8px;font-size:14px;margin-bottom:16px;outline:none;}
+/* SEARCH & CALENDAR */
+.search-input{width:100%;padding:10px 12px;border:1px solid #dde3f0;border-radius:9px;font-size:14px;margin-bottom:12px;outline:none;}
+.search-input:focus{border-color:#0f2554;}
+.filter-row{display:flex;gap:10px;margin-bottom:16px;}
+.filter-row input{flex:1;padding:10px 12px;border:1px solid #dde3f0;border-radius:9px;font-size:14px;outline:none;}
+.filter-row input:focus{border-color:#0f2554;}
+.filter-row input[type=date]{color:#374151;}
+.clear-btn{padding:10px 14px;border-radius:9px;border:1px solid #dde3f0;background:#fff;color:#6b7280;font-size:13px;cursor:pointer;white-space:nowrap;}
+.clear-btn:hover{background:#f3f4f6;}
 
 /* LOG CARDS */
-.log-card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,0.06);border-left:4px solid #1a56db;}
-.log-card .log-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.log-card .log-name{font-weight:700;font-size:16px;color:#111827;}
-.log-card .log-info{font-size:13px;color:#6b7280;line-height:1.9;}
+.log-card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(15,37,84,0.07);border-left:4px solid #0f2554;}
+.log-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.log-name{font-weight:700;font-size:16px;color:#111827;}
+.log-info{font-size:13px;color:#6b7280;line-height:1.9;}
 .badge{border-radius:20px;padding:2px 10px;font-size:12px;font-weight:600;}
 .badge-visita{background:#dbeafe;color:#1a56db;border:1px solid #93c5fd;}
 .badge-comida{background:#fef3c7;color:#d97706;border:1px solid #fcd34d;}
 .badge-paquete{background:#d1fae5;color:#057a55;border:1px solid #6ee7b7;}
-.empty{color:#6b7280;text-align:center;padding:20px 0;}
+.empty{color:#6b7280;text-align:center;padding:30px 0;font-size:14px;}
+
+/* STAT PILLS */
+.stats-row{display:flex;gap:8px;margin-bottom:16px;}
+.stat-pill{flex:1;background:#fff;border-radius:10px;padding:10px 8px;text-align:center;box-shadow:0 2px 6px rgba(15,37,84,0.07);}
+.stat-pill .snum{font-size:22px;font-weight:800;color:#0f2554;}
+.stat-pill .slbl{font-size:10px;color:#6b7280;margin-top:2px;}
 
 /* GUARD CARDS */
-.guard-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.guard-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(15,37,84,0.07);}
 .guard-top{display:flex;justify-content:space-between;align-items:center;}
 .guard-name{font-weight:700;font-size:16px;color:#111827;}
 .guard-shift{font-size:13px;color:#6b7280;}
-.guard-count{text-align:center;}
-.guard-count .num{font-size:28px;font-weight:700;color:#1a56db;}
-.guard-count .lbl{font-size:11px;color:#6b7280;}
-.guard-logs{margin-top:10px;border-top:1px solid #e5e7eb;padding-top:10px;}
+.guard-count .num{font-size:28px;font-weight:800;color:#0f2554;text-align:right;}
+.guard-count .lbl{font-size:11px;color:#6b7280;text-align:right;}
+.guard-logs{margin-top:10px;border-top:1px solid #f0f4f8;padding-top:10px;}
 .guard-log-item{font-size:13px;color:#6b7280;margin-bottom:4px;}
-.more{font-size:12px;color:#1a56db;}
+.more{font-size:12px;color:#0f2554;font-weight:600;}
+
+/* FOOTER */
+#footer{background:#0f2554;color:rgba(255,255,255,0.5);text-align:center;padding:12px 20px;font-size:11px;}
+#footer span{color:rgba(255,255,255,0.85);font-weight:700;}
 </style>
 </head>
 <body>
@@ -93,74 +121,88 @@ h3{color:#111827;margin:8px 0 16px;}
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="loginCard">
-    <div class="icon">🏢</div>
-    <h2>Control de Acceso</h2>
-    <p>Condominio</p>
-    <div class="field"><label>Usuario</label><input id="loginUser" placeholder="ej: carlos"/></div>
-    <div class="field"><label>Contraseña</label><input id="loginPass" type="password" placeholder="••••"/></div>
-    <div id="loginErr" class="alert-err show" style="display:none"></div>
+    <div class="loginLogo">
+      <div class="icon">🏢</div>
+      <h1>Alto Sacramento 3</h1>
+      <h2>Sistema de Control de Acceso</h2>
+    </div>
+    <div class="field"><label>Usuario</label><input id="loginUser" placeholder="ej: carlos" /></div>
+    <div class="field"><label>Contraseña</label><input id="loginPass" type="password" placeholder="••••" /></div>
+    <div id="loginErr" class="alert-err"></div>
     <button class="btn btn-primary" onclick="doLogin()">Ingresar</button>
-    <p class="hint">Usuarios: carlos / pedro / luis · pass: 1234</p>
+    <p class="loginHint">Usuarios: carlos / pedro / luis · pass: 1234</p>
   </div>
+  <div class="loginBrand">Desarrollado por <span>Linderos Digital</span></div>
 </div>
 
 <!-- APP -->
-<div id="appScreen" class="hidden">
+<div id="appScreen" class="hidden" style="display:none;flex-direction:column;min-height:100vh;">
   <div id="header">
-    <div>
-      <div class="title">🏢 Control de Acceso</div>
-      <div class="sub" id="guardInfo"></div>
+    <div class="headerTop">
+      <div>
+        <div class="headerTitle">Control de Acceso</div>
+        <div class="headerName">Alto Sacramento 3</div>
+        <div class="headerSub" id="guardInfo"></div>
+      </div>
+      <button id="logoutBtn" onclick="doLogout()">Salir</button>
     </div>
-    <button id="logoutBtn" onclick="doLogout()">Salir</button>
   </div>
   <div id="tabs">
     <button class="tab active" onclick="switchTab('register',this)">➕ Registrar</button>
     <button class="tab" onclick="switchTab('history',this)">📋 Historial</button>
     <button class="tab" onclick="switchTab('guards',this)">👮 Guardias</button>
   </div>
+
   <div id="content">
 
     <!-- REGISTER -->
     <div id="registerSection" class="section active">
       <h3>Registrar Ingreso</h3>
       <div id="regOk" class="alert-ok">✅ Visita registrada exitosamente</div>
-      <div class="field">
-        <label>RUT <span class="req">*</span></label>
-        <input id="fRut" placeholder="ej: 12345678-9" oninput="handleRut(this)"/>
-        <div id="rutFound" class="found-msg">✅ Visita encontrada en base de datos</div>
+      <div class="card">
+        <div class="field">
+          <label>RUT <span class="req">*</span></label>
+          <input id="fRut" placeholder="ej: 12345678-9" oninput="handleRut(this)"/>
+          <div id="rutFound" class="found-msg">✅ Visita encontrada en base de datos</div>
+        </div>
+        <div class="row">
+          <div class="field"><label>Nombre <span class="req">*</span></label><input id="fFirst" placeholder="ej: Ana"/></div>
+          <div class="field"><label>Apellido <span class="req">*</span></label><input id="fLast" placeholder="ej: García"/></div>
+        </div>
+        <div class="field">
+          <label>Tipo de visita <span class="req">*</span></label>
+          <select id="fType">
+            <option value="">-- Seleccionar --</option>
+            <option>Visita</option>
+            <option>Delivery comida</option>
+            <option>Delivery paquete</option>
+          </select>
+        </div>
+        <div class="field"><label>Casa / Departamento N° <span class="req">*</span></label><input id="fUnit" placeholder="ej: 204"/></div>
+        <div class="field">
+          <label class="check-label">
+            <input type="checkbox" id="fVehicle" onchange="toggleVehicle()"/>
+            ¿Ingresa en vehículo?
+          </label>
+        </div>
+        <div class="field hidden" id="plateField">
+          <label>Patente del vehículo <span class="req">*</span></label>
+          <input id="fPlate" placeholder="ej: AB-1234 o ABCD12" oninput="this.value=this.value.toUpperCase()"/>
+        </div>
+        <div id="regErr" class="alert-err"></div>
+        <button class="btn btn-primary" onclick="submitRegister()">✅ Registrar Ingreso</button>
       </div>
-      <div class="row">
-        <div class="field"><label>Nombre <span class="req">*</span></label><input id="fFirst" placeholder="ej: Ana"/></div>
-        <div class="field"><label>Apellido <span class="req">*</span></label><input id="fLast" placeholder="ej: García"/></div>
-      </div>
-      <div class="field">
-        <label>Tipo de visita <span class="req">*</span></label>
-        <select id="fType">
-          <option value="">-- Seleccionar --</option>
-          <option>Visita</option>
-          <option>Delivery comida</option>
-          <option>Delivery paquete</option>
-        </select>
-      </div>
-      <div class="field"><label>Casa / Departamento N° <span class="req">*</span></label><input id="fUnit" placeholder="ej: 204"/></div>
-      <div class="field">
-        <label class="check-label">
-          <input type="checkbox" id="fVehicle" onchange="toggleVehicle()"/>
-          ¿Ingresa en vehículo?
-        </label>
-      </div>
-      <div class="field hidden" id="plateField">
-        <label>Patente del vehículo <span class="req">*</span></label>
-        <input id="fPlate" placeholder="ej: AB-1234 o ABCD12" oninput="this.value=this.value.toUpperCase()"/>
-      </div>
-      <div id="regErr" class="alert-err"></div>
-      <button class="btn btn-primary" onclick="submitRegister()">✅ Registrar Ingreso</button>
     </div>
 
     <!-- HISTORY -->
     <div id="historySection" class="section">
       <h3>Historial de Accesos</h3>
-      <input class="search-input" id="searchInput" placeholder="🔍 Buscar por nombre, RUT, depto, patente..." oninput="renderHistory()"/>
+      <div class="stats-row" id="statsRow"></div>
+      <div class="filter-row">
+        <input class="search-input" style="margin:0" id="searchInput" placeholder="🔍 Nombre, RUT, depto, patente..." oninput="renderHistory()"/>
+        <input type="date" id="dateFilter" onchange="renderHistory()" title="Filtrar por fecha"/>
+        <button class="clear-btn" onclick="clearFilters()">✕ Limpiar</button>
+      </div>
       <div id="logList"></div>
     </div>
 
@@ -171,49 +213,35 @@ h3{color:#111827;margin:8px 0 16px;}
     </div>
 
   </div>
+
+  <div id="footer">
+    Desarrollado por <span>Linderos Digital</span> &nbsp;·&nbsp; Alto Sacramento 3 &copy; 2026
+  </div>
 </div>
 
 <script>
-const GUARDS = [
+const GUARDS=[
   {id:1,name:"Carlos Méndez",username:"carlos",password:"1234",shift:"Mañana"},
   {id:2,name:"Pedro Soto",   username:"pedro",  password:"1234",shift:"Tarde"},
   {id:3,name:"Luis Rojas",   username:"luis",   password:"1234",shift:"Noche"},
 ];
 
-let visitors = [
+let visitors=[
   {rut:"12345678-9",firstName:"Ana",  lastName:"García"},
   {rut:"98765432-1",firstName:"Mario",lastName:"Torres"},
 ];
 
-let logs = [
-  {id:1,rut:"12345678-9",firstName:"Ana",  lastName:"García",type:"Visita",         unit:"204",vehicle:false,plate:"",       guardId:1,guardName:"Carlos Méndez",shift:"Mañana",date:"2026-02-16",time:"09:15"},
-  {id:2,rut:"98765432-1",firstName:"Mario",lastName:"Torres",type:"Delivery comida",unit:"101",vehicle:true, plate:"AB-1234",guardId:2,guardName:"Pedro Soto",   shift:"Tarde", date:"2026-02-16",time:"14:30"},
+let logs=[
+  {id:1,rut:"12345678-9",firstName:"Ana",  lastName:"García",type:"Visita",         unit:"204",vehicle:false,plate:"",       guardId:1,guardName:"Carlos Méndez",shift:"Mañana",date:"2026-02-17",time:"09:15"},
+  {id:2,rut:"98765432-1",firstName:"Mario",lastName:"Torres",type:"Delivery comida",unit:"101",vehicle:true, plate:"AB-1234",guardId:2,guardName:"Pedro Soto",   shift:"Tarde", date:"2026-02-17",time:"14:30"},
 ];
 
-let currentGuard = null;
+let currentGuard=null;
 
-function formatRut(v){
-  const c=v.replace(/[^0-9kK]/g,"").toUpperCase();
-  if(c.length<=1) return c;
-  return c.slice(0,-1)+"-"+c.slice(-1);
-}
-
-function nowDT(){
-  const d=new Date();
-  return {date:d.toISOString().slice(0,10),time:d.toTimeString().slice(0,5)};
-}
-
-function typeClass(t){
-  if(t==="Visita") return "badge-visita";
-  if(t==="Delivery comida") return "badge-comida";
-  return "badge-paquete";
-}
-
-function typeBorderColor(t){
-  if(t==="Visita") return "#1a56db";
-  if(t==="Delivery comida") return "#d97706";
-  return "#057a55";
-}
+const formatRut=v=>{const c=v.replace(/[^0-9kK]/g,"").toUpperCase();if(c.length<=1)return c;return c.slice(0,-1)+"-"+c.slice(-1);};
+const nowDT=()=>{const d=new Date();return{date:d.toISOString().slice(0,10),time:d.toTimeString().slice(0,5)};};
+const typeClass=t=>t==="Visita"?"badge-visita":t==="Delivery comida"?"badge-comida":"badge-paquete";
+const typeBorder=t=>t==="Visita"?"#1a56db":t==="Delivery comida"?"#d97706":"#057a55";
 
 // LOGIN
 function doLogin(){
@@ -221,11 +249,13 @@ function doLogin(){
   const p=document.getElementById("loginPass").value;
   const g=GUARDS.find(g=>g.username===u&&g.password===p);
   const errEl=document.getElementById("loginErr");
-  if(!g){errEl.textContent="Usuario o contraseña incorrectos.";errEl.style.display="block";return;}
-  errEl.style.display="none";
+  if(!g){errEl.textContent="Usuario o contraseña incorrectos.";errEl.classList.add("show");return;}
+  errEl.classList.remove("show");
   currentGuard=g;
   document.getElementById("loginScreen").classList.add("hidden");
-  document.getElementById("appScreen").classList.remove("hidden");
+  const app=document.getElementById("appScreen");
+  app.classList.remove("hidden");
+  app.style.display="flex";
   document.getElementById("guardInfo").textContent="👮 "+g.name+" · Turno "+g.shift;
   clearForm();
 }
@@ -233,7 +263,9 @@ function doLogin(){
 function doLogout(){
   currentGuard=null;
   document.getElementById("loginScreen").classList.remove("hidden");
-  document.getElementById("appScreen").classList.add("hidden");
+  const app=document.getElementById("appScreen");
+  app.classList.add("hidden");
+  app.style.display="none";
   document.getElementById("loginUser").value="";
   document.getElementById("loginPass").value="";
 }
@@ -244,35 +276,25 @@ function switchTab(name,btn){
   btn.classList.add("active");
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   document.getElementById(name+"Section").classList.add("active");
-  if(name==="history") renderHistory();
+  if(name==="history"){renderStats();renderHistory();}
   if(name==="guards") renderGuards();
 }
 
 // REGISTER
 function handleRut(input){
-  const rut=formatRut(input.value);
-  input.value=rut;
-  const found=visitors.find(v=>v.rut===rut);
-  const rutFoundEl=document.getElementById("rutFound");
+  const rut=formatRut(input.value); input.value=rut;
+  const f=visitors.find(v=>v.rut===rut);
   const fFirst=document.getElementById("fFirst");
   const fLast=document.getElementById("fLast");
-  if(found){
-    fFirst.value=found.firstName; fFirst.disabled=true;
-    fLast.value=found.lastName;   fLast.disabled=true;
-    input.classList.add("ok-border");
-    rutFoundEl.classList.add("show");
-  } else {
-    fFirst.disabled=false; fLast.disabled=false;
-    input.classList.remove("ok-border");
-    rutFoundEl.classList.remove("show");
-  }
+  const msg=document.getElementById("rutFound");
+  if(f){fFirst.value=f.firstName;fFirst.disabled=true;fLast.value=f.lastName;fLast.disabled=true;input.classList.add("ok-border");msg.classList.add("show");}
+  else{fFirst.disabled=false;fLast.disabled=false;input.classList.remove("ok-border");msg.classList.remove("show");}
 }
 
 function toggleVehicle(){
   const checked=document.getElementById("fVehicle").checked;
   const pf=document.getElementById("plateField");
-  if(checked) pf.classList.remove("hidden");
-  else { pf.classList.add("hidden"); document.getElementById("fPlate").value=""; }
+  checked?pf.classList.remove("hidden"):(pf.classList.add("hidden"),document.getElementById("fPlate").value="");
 }
 
 function clearForm(){
@@ -297,34 +319,55 @@ function submitRegister(){
   const vehicle=document.getElementById("fVehicle").checked;
   const plate=document.getElementById("fPlate").value.trim();
   const errEl=document.getElementById("regErr");
-
   let err="";
   if(!rut||!firstName||!lastName) err="Nombre, apellido y RUT son obligatorios.";
   else if(!type) err="Selecciona el tipo de visita.";
   else if(!unit) err="Ingresa el número de casa o departamento.";
   else if(vehicle&&!plate) err="La patente es obligatoria si ingresa en vehículo.";
-
   if(err){errEl.textContent="⚠️ "+err;errEl.classList.add("show");return;}
   errEl.classList.remove("show");
-
-  const {date,time}=nowDT();
+  const{date,time}=nowDT();
   logs.unshift({id:Date.now(),rut,firstName,lastName,type,unit,vehicle,plate,guardId:currentGuard.id,guardName:currentGuard.name,shift:currentGuard.shift,date,time});
   if(!visitors.find(v=>v.rut===rut)) visitors.push({rut,firstName,lastName});
-
   clearForm();
   const ok=document.getElementById("regOk");
   ok.classList.add("show");
   setTimeout(()=>ok.classList.remove("show"),3000);
 }
 
+// STATS
+function renderStats(){
+  const total=logs.length;
+  const visitas=logs.filter(l=>l.type==="Visita").length;
+  const delivery=logs.filter(l=>l.type!=="Visita").length;
+  const vehiculos=logs.filter(l=>l.vehicle).length;
+  document.getElementById("statsRow").innerHTML=[
+    [total,"Total"],
+    [visitas,"Visitas"],
+    [delivery,"Deliveries"],
+    [vehiculos,"Vehículos"]
+  ].map(([n,l])=>`<div class="stat-pill"><div class="snum">${n}</div><div class="slbl">${l}</div></div>`).join("");
+}
+
 // HISTORY
+function clearFilters(){
+  document.getElementById("searchInput").value="";
+  document.getElementById("dateFilter").value="";
+  renderHistory();
+}
+
 function renderHistory(){
   const q=document.getElementById("searchInput").value.toLowerCase();
+  const dateF=document.getElementById("dateFilter").value;
   const list=document.getElementById("logList");
-  const filtered=logs.filter(l=>!q||[l.firstName,l.lastName,l.rut,l.unit,l.plate||""].join(" ").toLowerCase().includes(q));
-  if(filtered.length===0){list.innerHTML='<p class="empty">Sin resultados</p>';return;}
+  let filtered=logs.filter(l=>{
+    const matchQ=!q||[l.firstName,l.lastName,l.rut,l.unit,l.plate||""].join(" ").toLowerCase().includes(q);
+    const matchD=!dateF||l.date===dateF;
+    return matchQ&&matchD;
+  });
+  if(filtered.length===0){list.innerHTML='<p class="empty">📭 Sin resultados para los filtros seleccionados</p>';return;}
   list.innerHTML=filtered.map(l=>`
-    <div class="log-card" style="border-left-color:${typeBorderColor(l.type)}">
+    <div class="log-card" style="border-left-color:${typeBorder(l.type)}">
       <div class="log-top">
         <span class="log-name">${l.firstName} ${l.lastName}</span>
         <span class="badge ${typeClass(l.type)}">${l.type}</span>
@@ -341,27 +384,22 @@ function renderHistory(){
 
 // GUARDS
 function renderGuards(){
-  const list=document.getElementById("guardList");
-  list.innerHTML=GUARDS.map(g=>{
+  document.getElementById("guardList").innerHTML=GUARDS.map(g=>{
     const gl=logs.filter(l=>l.guardId===g.id);
     const items=gl.slice(0,3).map(l=>`<div class="guard-log-item">• ${l.firstName} ${l.lastName} → Depto ${l.unit} · ${l.date} ${l.time}</div>`).join("");
     const more=gl.length>3?`<div class="more">+${gl.length-3} más...</div>`:"";
-    const logsHtml=gl.length>0?`<div class="guard-logs">${items}${more}</div>`:"";
-    return `
-      <div class="guard-card">
-        <div class="guard-top">
-          <div><div class="guard-name">👮 ${g.name}</div><div class="guard-shift">Turno: ${g.shift}</div></div>
-          <div class="guard-count"><div class="num">${gl.length}</div><div class="lbl">registros</div></div>
-        </div>
-        ${logsHtml}
+    return`<div class="guard-card">
+      <div class="guard-top">
+        <div><div class="guard-name">👮 ${g.name}</div><div class="guard-shift">Turno: ${g.shift}</div></div>
+        <div class="guard-count"><div class="num">${gl.length}</div><div class="lbl">registros</div></div>
       </div>
-    `;
+      ${gl.length>0?`<div class="guard-logs">${items}${more}</div>`:""}
+    </div>`;
   }).join("");
 }
 
-// Enter key en login
-document.getElementById("loginPass").addEventListener("keydown",e=>{if(e.key==="Enter") doLogin();});
-document.getElementById("loginUser").addEventListener("keydown",e=>{if(e.key==="Enter") doLogin();});
+document.getElementById("loginPass").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
+document.getElementById("loginUser").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
 </script>
 </body>
 </html>
