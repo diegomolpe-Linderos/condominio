@@ -414,7 +414,7 @@ function renderHistory() {
         ${l.vehiculo?`🚗 Patente: <b style="color:#111827">${l.patente}</b> &nbsp;·&nbsp; `:""}
         📅 ${fmtDate(l.fecha)} ${l.hora}<br/>
         👮 ${l.guardia_nombre} · Turno ${l.turno}
-        ${l.observacion?`<br/>📝 <i>${l.observacion}</i>`:""}
+        ${l.observacion?`<br/>📝 Observación: <i style="color:#374151">${l.observacion}</i>`:""}
       </div>
     </div>
   `).join("");
