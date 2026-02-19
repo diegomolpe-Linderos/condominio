@@ -410,11 +410,11 @@ function renderHistory() {
         <span class="badge ${typeClass(l.tipo)}">${l.tipo}</span>
       </div>
       <div class="log-info">
-        🪪 ${l.rut} &nbsp;·&nbsp; 🏠 Depto/Casa ${l.unidad}<br/>
+        🪪 ${l.rut} &nbsp;·&nbsp; 🏠 Casa N° ${l.unidad}<br/>
         ${l.vehiculo?`🚗 Patente: <b style="color:#111827">${l.patente}</b> &nbsp;·&nbsp; `:""}
-        📅 ${fmtDate(l.fecha)} ${l.hora}<br/>
-        👮 ${l.guardia_nombre} · Turno ${l.turno}
-        ${l.observacion?`<br/>📝 Observación: <i style="color:#374151">${l.observacion}</i>`:""}
+        📅 ${fmtDate(l.fecha)} ${l.hora ? l.hora.slice(0,5) : ""}<br/>
+        👮 ${l.guardia_nombre} · Turno ${l.turno}<br/>
+        📝 Observación: <i style="color:#374151">${l.observacion || "Sin observación"}</i>
       </div>
     </div>
   `).join("");
