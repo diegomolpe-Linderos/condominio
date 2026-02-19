@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Control de Acceso - Alto Sacramento 3</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f4f8;min-height:100vh;display:flex;flex-direction:column;}
@@ -11,7 +12,6 @@ input,select,button{font-family:inherit;}
 input:disabled{background:#f9fafb;color:#6b7280;}
 .hidden{display:none!important;}
 
-/* LOGIN */
 #loginScreen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#0f2554 0%,#1a3a7a 100%);}
 .loginCard{background:#fff;border-radius:20px;padding:40px 36px;width:330px;box-shadow:0 8px 40px rgba(0,0,0,0.25);}
 .loginLogo{text-align:center;margin-bottom:20px;}
@@ -22,31 +22,24 @@ input:disabled{background:#f9fafb;color:#6b7280;}
 .loginBrand{margin-top:28px;text-align:center;font-size:11px;color:rgba(255,255,255,0.5);}
 .loginBrand span{color:rgba(255,255,255,0.8);font-weight:600;}
 
-/* HEADER */
 #header{background:linear-gradient(90deg,#0f2554 0%,#1a3a7a 100%);color:#fff;padding:0 20px;}
 .headerTop{display:flex;justify-content:space-between;align-items:center;padding:12px 0 8px;}
 .headerTitle{font-size:11px;font-weight:600;opacity:0.7;letter-spacing:1px;text-transform:uppercase;}
-.headerName{font-size:19px;font-weight:800;letter-spacing:0.3px;}
+.headerName{font-size:19px;font-weight:800;}
 .headerSub{font-size:12px;opacity:0.75;margin-top:2px;}
 #logoutBtn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:6px 14px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;}
-#logoutBtn:hover{background:rgba(255,255,255,0.25);}
 
-/* TABS */
 #tabs{display:flex;background:#0f2554;}
 .tab{flex:1;padding:11px 0;border:none;background:transparent;font-weight:600;font-size:12px;cursor:pointer;color:rgba(255,255,255,0.55);border-bottom:3px solid transparent;transition:all 0.2s;}
 .tab.active{color:#fff;border-bottom:3px solid #60a5fa;}
-.tab:hover{color:rgba(255,255,255,0.85);}
 
-/* CONTENT */
 #content{padding:16px;max-width:600px;margin:0 auto;width:100%;flex:1;}
 .section{display:none;}
 .section.active{display:block;}
 h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 
-/* CARDS */
 .card{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(15,37,84,0.08);}
 
-/* FORM */
 .field{margin-bottom:14px;}
 .field label{display:block;font-size:13px;font-weight:600;color:#1e293b;margin-bottom:4px;}
 .req{color:#e02424;}
@@ -60,12 +53,11 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 .check-label{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;font-weight:600;color:#1e293b;}
 .check-label input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:#0f2554;}
 
-/* BUTTONS */
 .btn{padding:10px 20px;border-radius:9px;font-weight:700;font-size:15px;cursor:pointer;border:none;transition:background 0.2s;}
 .btn-primary{background:#0f2554;color:#fff;width:100%;margin-top:4px;}
 .btn-primary:hover{background:#1a3a7a;}
+.btn-primary:disabled{background:#94a3b8;cursor:not-allowed;}
 
-/* ALERTS */
 .alert-ok{background:#d1fae5;border:1px solid #057a55;border-radius:8px;padding:12px;margin-bottom:16px;color:#057a55;font-weight:600;display:none;}
 .alert-ok.show{display:block;}
 .alert-err{color:#e02424;font-size:13px;margin-bottom:10px;display:none;}
@@ -73,17 +65,12 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 .found-msg{color:#057a55;font-size:12px;margin-top:4px;display:none;}
 .found-msg.show{display:block;}
 
-/* SEARCH & CALENDAR */
 .search-input{width:100%;padding:10px 12px;border:1px solid #dde3f0;border-radius:9px;font-size:14px;margin-bottom:12px;outline:none;}
-.search-input:focus{border-color:#0f2554;}
 .filter-row{display:flex;gap:10px;margin-bottom:16px;}
 .filter-row input{flex:1;padding:10px 12px;border:1px solid #dde3f0;border-radius:9px;font-size:14px;outline:none;}
-.filter-row input:focus{border-color:#0f2554;}
 .filter-row input[type=date]{color:#374151;}
-.clear-btn{padding:10px 14px;border-radius:9px;border:1px solid #dde3f0;background:#fff;color:#6b7280;font-size:13px;cursor:pointer;white-space:nowrap;}
-.clear-btn:hover{background:#f3f4f6;}
+.clear-btn{padding:10px 14px;border-radius:9px;border:1px solid #dde3f0;background:#fff;color:#6b7280;font-size:13px;cursor:pointer;}
 
-/* LOG CARDS */
 .log-card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(15,37,84,0.07);border-left:4px solid #0f2554;}
 .log-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
 .log-name{font-weight:700;font-size:16px;color:#111827;}
@@ -94,13 +81,11 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 .badge-paquete{background:#d1fae5;color:#057a55;border:1px solid #6ee7b7;}
 .empty{color:#6b7280;text-align:center;padding:30px 0;font-size:14px;}
 
-/* STAT PILLS */
 .stats-row{display:flex;gap:8px;margin-bottom:16px;}
 .stat-pill{flex:1;background:#fff;border-radius:10px;padding:10px 8px;text-align:center;box-shadow:0 2px 6px rgba(15,37,84,0.07);}
 .stat-pill .snum{font-size:22px;font-weight:800;color:#0f2554;}
 .stat-pill .slbl{font-size:10px;color:#6b7280;margin-top:2px;}
 
-/* GUARD CARDS */
 .guard-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(15,37,84,0.07);}
 .guard-top{display:flex;justify-content:space-between;align-items:center;}
 .guard-name{font-weight:700;font-size:16px;color:#111827;}
@@ -111,7 +96,8 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 .guard-log-item{font-size:13px;color:#6b7280;margin-bottom:4px;}
 .more{font-size:12px;color:#0f2554;font-weight:600;}
 
-/* FOOTER */
+.loading{text-align:center;padding:30px 0;color:#6b7280;font-size:14px;}
+
 #footer{background:#0f2554;color:rgba(255,255,255,0.5);text-align:center;padding:12px 20px;font-size:11px;}
 #footer span{color:rgba(255,255,255,0.85);font-weight:700;}
 </style>
@@ -126,10 +112,10 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
       <h1>Alto Sacramento 3</h1>
       <h2>Sistema de Control de Acceso</h2>
     </div>
-    <div class="field"><label>Usuario</label><input id="loginUser" placeholder="ej: carlos" /></div>
-    <div class="field"><label>Contraseña</label><input id="loginPass" type="password" placeholder="••••" /></div>
+    <div class="field"><label>Usuario</label><input id="loginUser" placeholder="ej: carlos"/></div>
+    <div class="field"><label>Contraseña</label><input id="loginPass" type="password" placeholder="••••"/></div>
     <div id="loginErr" class="alert-err"></div>
-    <button class="btn btn-primary" onclick="doLogin()">Ingresar</button>
+    <button class="btn btn-primary" id="loginBtn" onclick="doLogin()">Ingresar</button>
     <p class="loginHint">Usuarios: carlos / pedro / luis · pass: 1234</p>
   </div>
   <div class="loginBrand">Desarrollado por <span>Linderos Digital</span></div>
@@ -190,7 +176,7 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
           <input id="fPlate" placeholder="ej: AB-1234 o ABCD12" oninput="this.value=this.value.toUpperCase()"/>
         </div>
         <div id="regErr" class="alert-err"></div>
-        <button class="btn btn-primary" onclick="submitRegister()">✅ Registrar Ingreso</button>
+        <button class="btn btn-primary" id="submitBtn" onclick="submitRegister()">✅ Registrar Ingreso</button>
       </div>
     </div>
 
@@ -200,8 +186,8 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
       <div class="stats-row" id="statsRow"></div>
       <div class="filter-row">
         <input class="search-input" style="margin:0" id="searchInput" placeholder="🔍 Nombre, RUT, depto, patente..." oninput="renderHistory()"/>
-        <input type="date" id="dateFilter" onchange="renderHistory()" title="Filtrar por fecha"/>
-        <button class="clear-btn" onclick="clearFilters()">✕ Limpiar</button>
+        <input type="date" id="dateFilter" onchange="renderHistory()"/>
+        <button class="clear-btn" onclick="clearFilters()">✕</button>
       </div>
       <div id="logList"></div>
     </div>
@@ -220,85 +206,104 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 </div>
 
 <script>
-const GUARDS=[
-  {id:1,name:"Carlos Méndez",username:"carlos",password:"1234",shift:"Mañana"},
-  {id:2,name:"Pedro Soto",   username:"pedro",  password:"1234",shift:"Tarde"},
-  {id:3,name:"Luis Rojas",   username:"luis",   password:"1234",shift:"Noche"},
-];
+// ── SUPABASE CONFIG ──────────────────────────────────────────────
+const SB_URL = "https://yksfifqdwzntybcnfafq.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrc2ZpZnFkd3pudHliY25mYWZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NjQ1NTQsImV4cCI6MjA4NzA0MDU1NH0.NBuDK94ZrWrE9v3ers6iSwdD12eiIUbgOGs_Exxxv5w";
+const HEADERS = { "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY, "Content-Type": "application/json", "Prefer": "return=representation" };
 
-let visitors=[
-  {rut:"12345678-9",firstName:"Ana",  lastName:"García"},
-  {rut:"98765432-1",firstName:"Mario",lastName:"Torres"},
-];
+const api = {
+  get: (table, params="") => axios.get(`${SB_URL}/rest/v1/${table}${params}`, { headers: HEADERS }),
+  post: (table, data) => axios.post(`${SB_URL}/rest/v1/${table}`, data, { headers: HEADERS }),
+};
 
-let logs=[
-  {id:1,rut:"12345678-9",firstName:"Ana",  lastName:"García",type:"Visita",         unit:"204",vehicle:false,plate:"",       guardId:1,guardName:"Carlos Méndez",shift:"Mañana",date:"2026-02-17",time:"09:15"},
-  {id:2,rut:"98765432-1",firstName:"Mario",lastName:"Torres",type:"Delivery comida",unit:"101",vehicle:true, plate:"AB-1234",guardId:2,guardName:"Pedro Soto",   shift:"Tarde", date:"2026-02-17",time:"14:30"},
-];
+// ── STATE ────────────────────────────────────────────────────────
+let currentGuard = null;
+let allLogs = [];
 
-let currentGuard=null;
+// ── HELPERS ──────────────────────────────────────────────────────
+const formatRut = v => { const c = v.replace(/[^0-9kK]/g,"").toUpperCase(); if(c.length<=1) return c; return c.slice(0,-1)+"-"+c.slice(-1); };
+const nowDT = () => { const d = new Date(); return { date: d.toISOString().slice(0,10), time: d.toTimeString().slice(0,5) }; };
+const typeClass = t => t==="Visita"?"badge-visita":t==="Delivery comida"?"badge-comida":"badge-paquete";
+const typeBorder = t => t==="Visita"?"#1a56db":t==="Delivery comida"?"#d97706":"#057a55";
 
-const formatRut=v=>{const c=v.replace(/[^0-9kK]/g,"").toUpperCase();if(c.length<=1)return c;return c.slice(0,-1)+"-"+c.slice(-1);};
-const nowDT=()=>{const d=new Date();return{date:d.toISOString().slice(0,10),time:d.toTimeString().slice(0,5)};};
-const typeClass=t=>t==="Visita"?"badge-visita":t==="Delivery comida"?"badge-comida":"badge-paquete";
-const typeBorder=t=>t==="Visita"?"#1a56db":t==="Delivery comida"?"#d97706":"#057a55";
-
-// LOGIN
-function doLogin(){
-  const u=document.getElementById("loginUser").value.trim();
-  const p=document.getElementById("loginPass").value;
-  const g=GUARDS.find(g=>g.username===u&&g.password===p);
-  const errEl=document.getElementById("loginErr");
-  if(!g){errEl.textContent="Usuario o contraseña incorrectos.";errEl.classList.add("show");return;}
-  errEl.classList.remove("show");
-  currentGuard=g;
-  document.getElementById("loginScreen").classList.add("hidden");
-  const app=document.getElementById("appScreen");
-  app.classList.remove("hidden");
-  app.style.display="flex";
-  document.getElementById("guardInfo").textContent="👮 "+g.name+" · Turno "+g.shift;
-  clearForm();
+// ── LOGIN ────────────────────────────────────────────────────────
+async function doLogin() {
+  const u = document.getElementById("loginUser").value.trim();
+  const p = document.getElementById("loginPass").value;
+  const btn = document.getElementById("loginBtn");
+  const errEl = document.getElementById("loginErr");
+  if(!u||!p){ errEl.textContent="Ingresa usuario y contraseña."; errEl.classList.add("show"); return; }
+  btn.textContent = "Verificando..."; btn.disabled = true;
+  try {
+    const res = await api.get("guardias", `?username=eq.${u}&password=eq.${p}&activo=eq.true&select=*`);
+    if(res.data.length === 0){ errEl.textContent="Usuario o contraseña incorrectos."; errEl.classList.add("show"); return; }
+    errEl.classList.remove("show");
+    currentGuard = res.data[0];
+    document.getElementById("loginScreen").classList.add("hidden");
+    const app = document.getElementById("appScreen");
+    app.classList.remove("hidden"); app.style.display = "flex";
+    document.getElementById("guardInfo").textContent = "👮 " + currentGuard.nombre + " · Turno " + currentGuard.turno;
+    clearForm();
+  } catch(e) {
+    errEl.textContent = "Error de conexión. Intenta de nuevo."; errEl.classList.add("show");
+  } finally {
+    btn.textContent = "Ingresar"; btn.disabled = false;
+  }
 }
 
-function doLogout(){
-  currentGuard=null;
+function doLogout() {
+  currentGuard = null; allLogs = [];
   document.getElementById("loginScreen").classList.remove("hidden");
-  const app=document.getElementById("appScreen");
-  app.classList.add("hidden");
-  app.style.display="none";
-  document.getElementById("loginUser").value="";
-  document.getElementById("loginPass").value="";
+  const app = document.getElementById("appScreen");
+  app.classList.add("hidden"); app.style.display = "none";
+  document.getElementById("loginUser").value = "";
+  document.getElementById("loginPass").value = "";
+  switchTabByName("register");
 }
 
-// TABS
-function switchTab(name,btn){
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+// ── TABS ─────────────────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
   btn.classList.add("active");
-  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  switchTabByName(name);
+}
+
+function switchTabByName(name) {
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
   document.getElementById(name+"Section").classList.add("active");
-  if(name==="history"){renderStats();renderHistory();}
-  if(name==="guards") renderGuards();
+  if(name==="history") { loadLogs(); }
+  if(name==="guards")  { loadGuards(); }
 }
 
-// REGISTER
-function handleRut(input){
-  const rut=formatRut(input.value); input.value=rut;
-  const f=visitors.find(v=>v.rut===rut);
-  const fFirst=document.getElementById("fFirst");
-  const fLast=document.getElementById("fLast");
-  const msg=document.getElementById("rutFound");
-  if(f){fFirst.value=f.firstName;fFirst.disabled=true;fLast.value=f.lastName;fLast.disabled=true;input.classList.add("ok-border");msg.classList.add("show");}
-  else{fFirst.disabled=false;fLast.disabled=false;input.classList.remove("ok-border");msg.classList.remove("show");}
+// ── REGISTER ─────────────────────────────────────────────────────
+async function handleRut(input) {
+  const rut = formatRut(input.value); input.value = rut;
+  const fFirst = document.getElementById("fFirst");
+  const fLast  = document.getElementById("fLast");
+  const msg    = document.getElementById("rutFound");
+  if(rut.length < 4) { fFirst.disabled=false; fLast.disabled=false; input.classList.remove("ok-border"); msg.classList.remove("show"); return; }
+  try {
+    const res = await api.get("visitantes", `?rut=eq.${encodeURIComponent(rut)}&select=*`);
+    if(res.data.length > 0) {
+      const v = res.data[0];
+      fFirst.value=v.nombre; fFirst.disabled=true;
+      fLast.value=v.apellido; fLast.disabled=true;
+      input.classList.add("ok-border"); msg.classList.add("show");
+    } else {
+      fFirst.disabled=false; fLast.disabled=false;
+      input.classList.remove("ok-border"); msg.classList.remove("show");
+    }
+  } catch(e) {}
 }
 
-function toggleVehicle(){
-  const checked=document.getElementById("fVehicle").checked;
-  const pf=document.getElementById("plateField");
-  checked?pf.classList.remove("hidden"):(pf.classList.add("hidden"),document.getElementById("fPlate").value="");
+function toggleVehicle() {
+  const checked = document.getElementById("fVehicle").checked;
+  const pf = document.getElementById("plateField");
+  checked ? pf.classList.remove("hidden") : (pf.classList.add("hidden"), document.getElementById("fPlate").value="");
 }
 
-function clearForm(){
-  ["fRut","fFirst","fLast","fUnit","fPlate"].forEach(id=>document.getElementById(id).value="");
+function clearForm() {
+  ["fRut","fFirst","fLast","fUnit","fPlate"].forEach(id => document.getElementById(id).value="");
   document.getElementById("fType").value="";
   document.getElementById("fVehicle").checked=false;
   document.getElementById("plateField").classList.add("hidden");
@@ -310,96 +315,136 @@ function clearForm(){
   document.getElementById("regErr").textContent="";
 }
 
-function submitRegister(){
-  const rut=document.getElementById("fRut").value.trim();
-  const firstName=document.getElementById("fFirst").value.trim();
-  const lastName=document.getElementById("fLast").value.trim();
-  const type=document.getElementById("fType").value;
-  const unit=document.getElementById("fUnit").value.trim();
-  const vehicle=document.getElementById("fVehicle").checked;
-  const plate=document.getElementById("fPlate").value.trim();
-  const errEl=document.getElementById("regErr");
-  let err="";
+async function submitRegister() {
+  const rut       = document.getElementById("fRut").value.trim();
+  const firstName = document.getElementById("fFirst").value.trim();
+  const lastName  = document.getElementById("fLast").value.trim();
+  const type      = document.getElementById("fType").value;
+  const unit      = document.getElementById("fUnit").value.trim();
+  const vehicle   = document.getElementById("fVehicle").checked;
+  const plate     = document.getElementById("fPlate").value.trim();
+  const errEl     = document.getElementById("regErr");
+  const btn       = document.getElementById("submitBtn");
+
+  let err = "";
   if(!rut||!firstName||!lastName) err="Nombre, apellido y RUT son obligatorios.";
   else if(!type) err="Selecciona el tipo de visita.";
   else if(!unit) err="Ingresa el número de casa o departamento.";
   else if(vehicle&&!plate) err="La patente es obligatoria si ingresa en vehículo.";
-  if(err){errEl.textContent="⚠️ "+err;errEl.classList.add("show");return;}
+  if(err){ errEl.textContent="⚠️ "+err; errEl.classList.add("show"); return; }
   errEl.classList.remove("show");
-  const{date,time}=nowDT();
-  logs.unshift({id:Date.now(),rut,firstName,lastName,type,unit,vehicle,plate,guardId:currentGuard.id,guardName:currentGuard.name,shift:currentGuard.shift,date,time});
-  if(!visitors.find(v=>v.rut===rut)) visitors.push({rut,firstName,lastName});
-  clearForm();
-  const ok=document.getElementById("regOk");
-  ok.classList.add("show");
-  setTimeout(()=>ok.classList.remove("show"),3000);
+
+  btn.textContent="Guardando..."; btn.disabled=true;
+  const { date, time } = nowDT();
+  try {
+    // Guardar visitante si no existe
+    const vRes = await api.get("visitantes", `?rut=eq.${encodeURIComponent(rut)}&select=id`);
+    if(vRes.data.length === 0) {
+      await api.post("visitantes", { rut, nombre: firstName, apellido: lastName });
+    }
+    // Guardar acceso
+    await api.post("accesos", {
+      rut, nombre: firstName, apellido: lastName, tipo: type,
+      unidad: unit, vehiculo: vehicle, patente: plate||null,
+      guardia_id: currentGuard.id, guardia_nombre: currentGuard.nombre,
+      turno: currentGuard.turno, fecha: date, hora: time
+    });
+    clearForm();
+    const ok = document.getElementById("regOk");
+    ok.classList.add("show");
+    setTimeout(() => ok.classList.remove("show"), 3000);
+  } catch(e) {
+    errEl.textContent="⚠️ Error al guardar. Intenta de nuevo."; errEl.classList.add("show");
+  } finally {
+    btn.textContent="✅ Registrar Ingreso"; btn.disabled=false;
+  }
 }
 
-// STATS
-function renderStats(){
-  const total=logs.length;
-  const visitas=logs.filter(l=>l.type==="Visita").length;
-  const delivery=logs.filter(l=>l.type!=="Visita").length;
-  const vehiculos=logs.filter(l=>l.vehicle).length;
-  document.getElementById("statsRow").innerHTML=[
-    [total,"Total"],
-    [visitas,"Visitas"],
-    [delivery,"Deliveries"],
-    [vehiculos,"Vehículos"]
-  ].map(([n,l])=>`<div class="stat-pill"><div class="snum">${n}</div><div class="slbl">${l}</div></div>`).join("");
+// ── HISTORY ──────────────────────────────────────────────────────
+async function loadLogs() {
+  document.getElementById("logList").innerHTML='<p class="loading">⏳ Cargando registros...</p>';
+  try {
+    const res = await api.get("accesos", "?select=*&order=created_at.desc");
+    allLogs = res.data;
+    renderStats();
+    renderHistory();
+  } catch(e) {
+    document.getElementById("logList").innerHTML='<p class="empty">❌ Error al cargar registros.</p>';
+  }
 }
 
-// HISTORY
-function clearFilters(){
+function clearFilters() {
   document.getElementById("searchInput").value="";
   document.getElementById("dateFilter").value="";
   renderHistory();
 }
 
-function renderHistory(){
-  const q=document.getElementById("searchInput").value.toLowerCase();
-  const dateF=document.getElementById("dateFilter").value;
-  const list=document.getElementById("logList");
-  let filtered=logs.filter(l=>{
-    const matchQ=!q||[l.firstName,l.lastName,l.rut,l.unit,l.plate||""].join(" ").toLowerCase().includes(q);
-    const matchD=!dateF||l.date===dateF;
-    return matchQ&&matchD;
+function renderStats() {
+  const total    = allLogs.length;
+  const visitas  = allLogs.filter(l=>l.tipo==="Visita").length;
+  const delivery = allLogs.filter(l=>l.tipo!=="Visita").length;
+  const vehiculos= allLogs.filter(l=>l.vehiculo).length;
+  document.getElementById("statsRow").innerHTML=[
+    [total,"Total"],[visitas,"Visitas"],[delivery,"Deliveries"],[vehiculos,"Vehículos"]
+  ].map(([n,l])=>`<div class="stat-pill"><div class="snum">${n}</div><div class="slbl">${l}</div></div>`).join("");
+}
+
+function renderHistory() {
+  const q     = document.getElementById("searchInput").value.toLowerCase();
+  const dateF = document.getElementById("dateFilter").value;
+  const list  = document.getElementById("logList");
+  const filtered = allLogs.filter(l => {
+    const matchQ = !q || [l.nombre,l.apellido,l.rut,l.unidad,l.patente||""].join(" ").toLowerCase().includes(q);
+    const matchD = !dateF || l.fecha === dateF;
+    return matchQ && matchD;
   });
-  if(filtered.length===0){list.innerHTML='<p class="empty">📭 Sin resultados para los filtros seleccionados</p>';return;}
-  list.innerHTML=filtered.map(l=>`
-    <div class="log-card" style="border-left-color:${typeBorder(l.type)}">
+  if(filtered.length===0){ list.innerHTML='<p class="empty">📭 Sin resultados para los filtros seleccionados</p>'; return; }
+  list.innerHTML = filtered.map(l=>`
+    <div class="log-card" style="border-left-color:${typeBorder(l.tipo)}">
       <div class="log-top">
-        <span class="log-name">${l.firstName} ${l.lastName}</span>
-        <span class="badge ${typeClass(l.type)}">${l.type}</span>
+        <span class="log-name">${l.nombre} ${l.apellido}</span>
+        <span class="badge ${typeClass(l.tipo)}">${l.tipo}</span>
       </div>
       <div class="log-info">
-        🪪 ${l.rut} &nbsp;·&nbsp; 🏠 Depto/Casa ${l.unit}<br/>
-        ${l.vehicle?`🚗 Patente: <b style="color:#111827">${l.plate}</b> &nbsp;·&nbsp; `:""}
-        📅 ${l.date} ${l.time}<br/>
-        👮 ${l.guardName} · Turno ${l.shift}
+        🪪 ${l.rut} &nbsp;·&nbsp; 🏠 Depto/Casa ${l.unidad}<br/>
+        ${l.vehiculo?`🚗 Patente: <b style="color:#111827">${l.patente}</b> &nbsp;·&nbsp; `:""}
+        📅 ${l.fecha} ${l.hora}<br/>
+        👮 ${l.guardia_nombre} · Turno ${l.turno}
       </div>
     </div>
   `).join("");
 }
 
-// GUARDS
-function renderGuards(){
-  document.getElementById("guardList").innerHTML=GUARDS.map(g=>{
-    const gl=logs.filter(l=>l.guardId===g.id);
-    const items=gl.slice(0,3).map(l=>`<div class="guard-log-item">• ${l.firstName} ${l.lastName} → Depto ${l.unit} · ${l.date} ${l.time}</div>`).join("");
-    const more=gl.length>3?`<div class="more">+${gl.length-3} más...</div>`:"";
-    return`<div class="guard-card">
-      <div class="guard-top">
-        <div><div class="guard-name">👮 ${g.name}</div><div class="guard-shift">Turno: ${g.shift}</div></div>
-        <div class="guard-count"><div class="num">${gl.length}</div><div class="lbl">registros</div></div>
-      </div>
-      ${gl.length>0?`<div class="guard-logs">${items}${more}</div>`:""}
-    </div>`;
-  }).join("");
+// ── GUARDS ───────────────────────────────────────────────────────
+async function loadGuards() {
+  document.getElementById("guardList").innerHTML='<p class="loading">⏳ Cargando...</p>';
+  try {
+    const [gRes, lRes] = await Promise.all([
+      api.get("guardias","?select=*&activo=eq.true"),
+      api.get("accesos","?select=guardia_id,guardia_nombre,turno,nombre,apellido,unidad,fecha,hora&order=created_at.desc")
+    ]);
+    const guards = gRes.data;
+    const logs   = lRes.data;
+    document.getElementById("guardList").innerHTML = guards.map(g => {
+      const gl = logs.filter(l => l.guardia_id === g.id);
+      const items = gl.slice(0,3).map(l=>`<div class="guard-log-item">• ${l.nombre} ${l.apellido} → Depto ${l.unidad} · ${l.fecha} ${l.hora}</div>`).join("");
+      const more  = gl.length>3?`<div class="more">+${gl.length-3} más...</div>`:"";
+      return `<div class="guard-card">
+        <div class="guard-top">
+          <div><div class="guard-name">👮 ${g.nombre}</div><div class="guard-shift">${g.turno}</div></div>
+          <div class="guard-count"><div class="num">${gl.length}</div><div class="lbl">registros</div></div>
+        </div>
+        ${gl.length>0?`<div class="guard-logs">${items}${more}</div>`:""}
+      </div>`;
+    }).join("");
+  } catch(e) {
+    document.getElementById("guardList").innerHTML='<p class="empty">❌ Error al cargar guardias.</p>';
+  }
 }
 
-document.getElementById("loginPass").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
-document.getElementById("loginUser").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
+// ── EVENTS ───────────────────────────────────────────────────────
+document.getElementById("loginPass").addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
+document.getElementById("loginUser").addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
 </script>
 </body>
 </html>
