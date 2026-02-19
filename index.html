@@ -79,6 +79,7 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 .badge-visita{background:#dbeafe;color:#1a56db;border:1px solid #93c5fd;}
 .badge-comida{background:#fef3c7;color:#d97706;border:1px solid #fcd34d;}
 .badge-paquete{background:#d1fae5;color:#057a55;border:1px solid #6ee7b7;}
+.badge-otros{background:#ede9fe;color:#7c3aed;border:1px solid #c4b5fd;}
 .empty{color:#6b7280;text-align:center;padding:30px 0;font-size:14px;}
 
 .stats-row{display:flex;gap:8px;margin-bottom:16px;}
@@ -160,11 +161,13 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
           <select id="fType">
             <option value="">-- Seleccionar --</option>
             <option>Visita</option>
-            <option>Delivery comida</option>
-            <option>Delivery paquete</option>
+            <option>Delivery</option>
+            <option>Encomienda</option>
+            <option>Otros</option>
           </select>
         </div>
-        <div class="field"><label>Casa / Departamento N° <span class="req">*</span></label><input id="fUnit" placeholder="ej: 204"/></div>
+        <div class="field"><label>Casa N° <span class="req">*</span></label><input id="fUnit" placeholder="ej: 15"/></div>
+        <div class="field"><label>Observación</label><input id="fObs" placeholder="ej: Visita autorizada por propietario (opcional)"/></div>
         <div class="field">
           <label class="check-label">
             <input type="checkbox" id="fVehicle" onchange="toggleVehicle()"/>
@@ -223,8 +226,9 @@ let allLogs = [];
 // ── HELPERS ──────────────────────────────────────────────────────
 const formatRut = v => { const c = v.replace(/[^0-9kK]/g,"").toUpperCase(); if(c.length<=1) return c; return c.slice(0,-1)+"-"+c.slice(-1); };
 const nowDT = () => { const d = new Date(); return { date: d.toISOString().slice(0,10), time: d.toTimeString().slice(0,5) }; };
-const typeClass = t => t==="Visita"?"badge-visita":t==="Delivery comida"?"badge-comida":"badge-paquete";
-const typeBorder = t => t==="Visita"?"#1a56db":t==="Delivery comida"?"#d97706":"#057a55";
+const typeClass = t => t==="Visita"?"badge-visita":t==="Delivery"?"badge-comida":t==="Encomienda"?"badge-paquete":"badge-otros";
+const typeBorder = t => t==="Visita"?"#1a56db":t==="Delivery"?"#d97706":t==="Encomienda"?"#057a55":"#7c3aed";
+const fmtDate = d => { if(!d) return ""; const [y,m,dd]=d.split("-"); return `${dd}-${m}-${y}`; };
 
 // ── LOGIN ────────────────────────────────────────────────────────
 async function doLogin() {
@@ -303,7 +307,7 @@ function toggleVehicle() {
 }
 
 function clearForm() {
-  ["fRut","fFirst","fLast","fUnit","fPlate"].forEach(id => document.getElementById(id).value="");
+  ["fRut","fFirst","fLast","fUnit","fPlate","fObs"].forEach(id => document.getElementById(id).value="");
   document.getElementById("fType").value="";
   document.getElementById("fVehicle").checked=false;
   document.getElementById("plateField").classList.add("hidden");
@@ -408,8 +412,9 @@ function renderHistory() {
       <div class="log-info">
         🪪 ${l.rut} &nbsp;·&nbsp; 🏠 Depto/Casa ${l.unidad}<br/>
         ${l.vehiculo?`🚗 Patente: <b style="color:#111827">${l.patente}</b> &nbsp;·&nbsp; `:""}
-        📅 ${l.fecha} ${l.hora}<br/>
+        📅 ${fmtDate(l.fecha)} ${l.hora}<br/>
         👮 ${l.guardia_nombre} · Turno ${l.turno}
+        ${l.observacion?`<br/>📝 <i>${l.observacion}</i>`:""}
       </div>
     </div>
   `).join("");
