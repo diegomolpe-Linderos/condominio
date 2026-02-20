@@ -339,6 +339,7 @@ async function submitRegister() {
   errEl.classList.remove("show");
 
   btn.textContent="Guardando..."; btn.disabled=true;
+  console.log("OBS VALOR:", obs);
   const { date, time } = nowDT();
   try {
     // Guardar visitante si no existe
