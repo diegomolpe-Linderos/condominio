@@ -11,7 +11,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 input,select,button{font-family:inherit;}
 input:disabled{background:#f9fafb;color:#6b7280;}
 .hidden{display:none!important;}
-
 #loginScreen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#0f2554 0%,#1a3a7a 100%);}
 .loginCard{background:#fff;border-radius:20px;padding:40px 36px;width:330px;box-shadow:0 8px 40px rgba(0,0,0,0.25);}
 .loginLogo{text-align:center;margin-bottom:20px;}
@@ -21,72 +20,60 @@ input:disabled{background:#f9fafb;color:#6b7280;}
 .loginHint{font-size:12px;color:#9ca3af;text-align:center;margin-top:14px;}
 .loginBrand{margin-top:28px;text-align:center;font-size:11px;color:rgba(255,255,255,0.5);}
 .loginBrand span{color:rgba(255,255,255,0.8);font-weight:600;}
-
 #header{background:linear-gradient(90deg,#0f2554 0%,#1a3a7a 100%);color:#fff;padding:0 20px;}
 .headerTop{display:flex;justify-content:space-between;align-items:center;padding:12px 0 8px;}
 .headerTitle{font-size:11px;font-weight:600;opacity:0.7;letter-spacing:1px;text-transform:uppercase;}
 .headerName{font-size:19px;font-weight:800;}
 .headerSub{font-size:12px;opacity:0.75;margin-top:2px;}
 #logoutBtn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:6px 14px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;}
-
 #tabs{display:flex;background:#0f2554;}
-.tab{flex:1;padding:11px 0;border:none;background:transparent;font-weight:600;font-size:12px;cursor:pointer;color:rgba(255,255,255,0.55);border-bottom:3px solid transparent;transition:all 0.2s;}
+.tab{flex:1;padding:11px 0;border:none;background:transparent;font-weight:600;font-size:12px;cursor:pointer;color:rgba(255,255,255,0.55);border-bottom:3px solid transparent;}
 .tab.active{color:#fff;border-bottom:3px solid #60a5fa;}
-
 #content{padding:16px;max-width:600px;margin:0 auto;width:100%;flex:1;}
 .section{display:none;}
 .section.active{display:block;}
 h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
-
 .card{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(15,37,84,0.08);}
-
 .field{margin-bottom:14px;}
 .field label{display:block;font-size:13px;font-weight:600;color:#1e293b;margin-bottom:4px;}
 .req{color:#e02424;}
-.field input,.field select{width:100%;padding:10px 12px;border:1px solid #dde3f0;border-radius:9px;font-size:15px;outline:none;color:#111827;background:#fff;transition:border 0.2s;}
+.field input,.field select{width:100%;padding:10px 12px;border:1px solid #dde3f0;border-radius:9px;font-size:15px;outline:none;color:#111827;background:#fff;}
 .field input:focus,.field select:focus{border-color:#0f2554;}
 .field input:disabled{background:#f9fafb;color:#6b7280;}
-.field input.error-border{border-color:#e02424;}
 .field input.ok-border{border-color:#057a55;}
 .row{display:flex;gap:12px;}
 .row .field{flex:1;}
 .check-label{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;font-weight:600;color:#1e293b;}
 .check-label input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:#0f2554;}
-
-.btn{padding:10px 20px;border-radius:9px;font-weight:700;font-size:15px;cursor:pointer;border:none;transition:background 0.2s;}
+.btn{padding:10px 20px;border-radius:9px;font-weight:700;font-size:15px;cursor:pointer;border:none;}
 .btn-primary{background:#0f2554;color:#fff;width:100%;margin-top:4px;}
 .btn-primary:hover{background:#1a3a7a;}
 .btn-primary:disabled{background:#94a3b8;cursor:not-allowed;}
-
 .alert-ok{background:#d1fae5;border:1px solid #057a55;border-radius:8px;padding:12px;margin-bottom:16px;color:#057a55;font-weight:600;display:none;}
 .alert-ok.show{display:block;}
 .alert-err{color:#e02424;font-size:13px;margin-bottom:10px;display:none;}
 .alert-err.show{display:block;}
 .found-msg{color:#057a55;font-size:12px;margin-top:4px;display:none;}
 .found-msg.show{display:block;}
-
-.search-input{width:100%;padding:10px 12px;border:1px solid #dde3f0;border-radius:9px;font-size:14px;margin-bottom:12px;outline:none;}
 .filter-row{display:flex;gap:10px;margin-bottom:16px;}
 .filter-row input{flex:1;padding:10px 12px;border:1px solid #dde3f0;border-radius:9px;font-size:14px;outline:none;}
 .filter-row input[type=date]{color:#374151;}
 .clear-btn{padding:10px 14px;border-radius:9px;border:1px solid #dde3f0;background:#fff;color:#6b7280;font-size:13px;cursor:pointer;}
-
 .log-card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(15,37,84,0.07);border-left:4px solid #0f2554;}
 .log-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
 .log-name{font-weight:700;font-size:16px;color:#111827;}
 .log-info{font-size:13px;color:#6b7280;line-height:1.9;}
 .badge{border-radius:20px;padding:2px 10px;font-size:12px;font-weight:600;}
 .badge-visita{background:#dbeafe;color:#1a56db;border:1px solid #93c5fd;}
-.badge-comida{background:#fef3c7;color:#d97706;border:1px solid #fcd34d;}
-.badge-paquete{background:#d1fae5;color:#057a55;border:1px solid #6ee7b7;}
+.badge-delivery{background:#fef3c7;color:#d97706;border:1px solid #fcd34d;}
+.badge-encomienda{background:#d1fae5;color:#057a55;border:1px solid #6ee7b7;}
 .badge-otros{background:#ede9fe;color:#7c3aed;border:1px solid #c4b5fd;}
 .empty{color:#6b7280;text-align:center;padding:30px 0;font-size:14px;}
-
+.loading{text-align:center;padding:30px 0;color:#6b7280;font-size:14px;}
 .stats-row{display:flex;gap:8px;margin-bottom:16px;}
 .stat-pill{flex:1;background:#fff;border-radius:10px;padding:10px 8px;text-align:center;box-shadow:0 2px 6px rgba(15,37,84,0.07);}
 .stat-pill .snum{font-size:22px;font-weight:800;color:#0f2554;}
 .stat-pill .slbl{font-size:10px;color:#6b7280;margin-top:2px;}
-
 .guard-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(15,37,84,0.07);}
 .guard-top{display:flex;justify-content:space-between;align-items:center;}
 .guard-name{font-weight:700;font-size:16px;color:#111827;}
@@ -96,16 +83,12 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 .guard-logs{margin-top:10px;border-top:1px solid #f0f4f8;padding-top:10px;}
 .guard-log-item{font-size:13px;color:#6b7280;margin-bottom:4px;}
 .more{font-size:12px;color:#0f2554;font-weight:600;}
-
-.loading{text-align:center;padding:30px 0;color:#6b7280;font-size:14px;}
-
 #footer{background:#0f2554;color:rgba(255,255,255,0.5);text-align:center;padding:12px 20px;font-size:11px;}
 #footer span{color:rgba(255,255,255,0.85);font-weight:700;}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginScreen">
   <div class="loginCard">
     <div class="loginLogo">
@@ -122,8 +105,7 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
   <div class="loginBrand">Desarrollado por <span>Linderos Digital</span></div>
 </div>
 
-<!-- APP -->
-<div id="appScreen" class="hidden" style="display:none;flex-direction:column;min-height:100vh;">
+<div id="appScreen" style="display:none;flex-direction:column;min-height:100vh;">
   <div id="header">
     <div class="headerTop">
       <div>
@@ -139,10 +121,8 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
     <button class="tab" onclick="switchTab('history',this)">📋 Historial</button>
     <button class="tab" onclick="switchTab('guards',this)">👮 Guardias</button>
   </div>
-
   <div id="content">
 
-    <!-- REGISTER -->
     <div id="registerSection" class="section active">
       <h3>Registrar Ingreso</h3>
       <div id="regOk" class="alert-ok">✅ Visita registrada exitosamente</div>
@@ -167,7 +147,6 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
           </select>
         </div>
         <div class="field"><label>Casa N° <span class="req">*</span></label><input id="fUnit" placeholder="ej: 15"/></div>
-        <div class="field"><label>Observación</label><input id="fObs" placeholder="ej: Visita autorizada por propietario (opcional)"/></div>
         <div class="field">
           <label class="check-label">
             <input type="checkbox" id="fVehicle" onchange="toggleVehicle()"/>
@@ -176,237 +155,236 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
         </div>
         <div class="field hidden" id="plateField">
           <label>Patente del vehículo <span class="req">*</span></label>
-          <input id="fPlate" placeholder="ej: AB-1234 o ABCD12" oninput="this.value=this.value.toUpperCase()"/>
+          <input id="fPlate" placeholder="ej: AB-1234" oninput="this.value=this.value.toUpperCase()"/>
+        </div>
+        <div class="field">
+          <label>Observación</label>
+          <input id="fObs" placeholder="ej: Autorizado por propietario (opcional)"/>
         </div>
         <div id="regErr" class="alert-err"></div>
         <button class="btn btn-primary" id="submitBtn" onclick="submitRegister()">✅ Registrar Ingreso</button>
       </div>
     </div>
 
-    <!-- HISTORY -->
     <div id="historySection" class="section">
       <h3>Historial de Accesos</h3>
       <div class="stats-row" id="statsRow"></div>
       <div class="filter-row">
-        <input class="search-input" style="margin:0" id="searchInput" placeholder="🔍 Nombre, RUT, depto, patente..." oninput="renderHistory()"/>
+        <input id="searchInput" placeholder="🔍 Nombre, RUT, casa, patente..." oninput="renderHistory()"/>
         <input type="date" id="dateFilter" onchange="renderHistory()"/>
         <button class="clear-btn" onclick="clearFilters()">✕</button>
       </div>
       <div id="logList"></div>
     </div>
 
-    <!-- GUARDS -->
     <div id="guardsSection" class="section">
       <h3>Panel de Guardias</h3>
       <div id="guardList"></div>
     </div>
 
   </div>
-
   <div id="footer">
     Desarrollado por <span>Linderos Digital</span> &nbsp;·&nbsp; Alto Sacramento 3 &copy; 2026
   </div>
 </div>
 
 <script>
-// ── SUPABASE CONFIG ──────────────────────────────────────────────
 const SB_URL = "https://yksfifqdwzntybcnfafq.supabase.co";
 const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrc2ZpZnFkd3pudHliY25mYWZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NjQ1NTQsImV4cCI6MjA4NzA0MDU1NH0.NBuDK94ZrWrE9v3ers6iSwdD12eiIUbgOGs_Exxxv5w";
-const HEADERS = { "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY, "Content-Type": "application/json", "Prefer": "return=representation" };
+const H = {"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=representation"};
 
-const api = {
-  get: (table, params="") => axios.get(`${SB_URL}/rest/v1/${table}${params}`, { headers: HEADERS }),
-  post: (table, data) => axios.post(`${SB_URL}/rest/v1/${table}`, data, { headers: HEADERS }),
-};
+const sbGet  = (t,q="") => axios.get(`${SB_URL}/rest/v1/${t}${q}`,{headers:H});
+const sbPost = (t,d)     => axios.post(`${SB_URL}/rest/v1/${t}`,d,{headers:H});
 
-// ── STATE ────────────────────────────────────────────────────────
 let currentGuard = null;
 let allLogs = [];
 
-// ── HELPERS ──────────────────────────────────────────────────────
-const formatRut = v => { const c = v.replace(/[^0-9kK]/g,"").toUpperCase(); if(c.length<=1) return c; return c.slice(0,-1)+"-"+c.slice(-1); };
-const nowDT = () => { const d = new Date(); return { date: d.toISOString().slice(0,10), time: d.toTimeString().slice(0,5) }; };
-const typeClass = t => t==="Visita"?"badge-visita":t==="Delivery"?"badge-comida":t==="Encomienda"?"badge-paquete":"badge-otros";
+const fmtDate = d => { if(!d) return ""; const p=d.split("-"); return p[2]+"-"+p[1]+"-"+p[0]; };
+const fmtTime = t => t ? t.slice(0,5) : "";
+const typeClass  = t => t==="Visita"?"badge-visita":t==="Delivery"?"badge-delivery":t==="Encomienda"?"badge-encomienda":"badge-otros";
 const typeBorder = t => t==="Visita"?"#1a56db":t==="Delivery"?"#d97706":t==="Encomienda"?"#057a55":"#7c3aed";
-const fmtDate = d => { if(!d) return ""; const [y,m,dd]=d.split("-"); return `${dd}-${m}-${y}`; };
 
-// ── LOGIN ────────────────────────────────────────────────────────
+function showApp(guard) {
+  currentGuard = guard;
+  document.getElementById("loginScreen").classList.add("hidden");
+  const app = document.getElementById("appScreen");
+  app.style.display = "flex";
+  document.getElementById("guardInfo").textContent = "👮 "+guard.nombre+" · Turno "+guard.turno;
+}
+
+function hideApp() {
+  currentGuard = null;
+  allLogs = [];
+  document.getElementById("loginScreen").classList.remove("hidden");
+  document.getElementById("appScreen").style.display = "none";
+}
+
 async function doLogin() {
   const u = document.getElementById("loginUser").value.trim();
-  const p = document.getElementById("loginPass").value;
+  const p = document.getElementById("loginPass").value.trim();
   const btn = document.getElementById("loginBtn");
   const errEl = document.getElementById("loginErr");
   if(!u||!p){ errEl.textContent="Ingresa usuario y contraseña."; errEl.classList.add("show"); return; }
-  btn.textContent = "Verificando..."; btn.disabled = true;
+  btn.textContent="Verificando..."; btn.disabled=true;
   try {
-    const res = await api.get("guardias", `?username=eq.${u}&password=eq.${p}&activo=eq.true&select=*`);
-    if(res.data.length === 0){ errEl.textContent="Usuario o contraseña incorrectos."; errEl.classList.add("show"); return; }
-    errEl.classList.remove("show");
-    currentGuard = res.data[0];
-    document.getElementById("loginScreen").classList.add("hidden");
-    const app = document.getElementById("appScreen");
-    app.classList.remove("hidden"); app.style.display = "flex";
-    document.getElementById("guardInfo").textContent = "👮 " + currentGuard.nombre + " · Turno " + currentGuard.turno;
-    clearForm();
+    const res = await sbGet("guardias",`?username=eq.${u}&password=eq.${p}&activo=eq.true&select=*`);
+    if(res.data.length===0){ errEl.textContent="Usuario o contraseña incorrectos."; errEl.classList.add("show"); }
+    else { errEl.classList.remove("show"); showApp(res.data[0]); clearForm(); }
   } catch(e) {
-    errEl.textContent = "Error de conexión. Intenta de nuevo."; errEl.classList.add("show");
-  } finally {
-    btn.textContent = "Ingresar"; btn.disabled = false;
+    errEl.textContent="Error de conexión."; errEl.classList.add("show");
   }
+  btn.textContent="Ingresar"; btn.disabled=false;
 }
 
 function doLogout() {
-  currentGuard = null; allLogs = [];
-  document.getElementById("loginScreen").classList.remove("hidden");
-  const app = document.getElementById("appScreen");
-  app.classList.add("hidden"); app.style.display = "none";
-  document.getElementById("loginUser").value = "";
-  document.getElementById("loginPass").value = "";
-  switchTabByName("register");
+  hideApp();
+  document.getElementById("loginUser").value="";
+  document.getElementById("loginPass").value="";
+  document.querySelectorAll(".tab")[0].click();
 }
 
-// ── TABS ─────────────────────────────────────────────────────────
 function switchTab(name, btn) {
-  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   btn.classList.add("active");
-  switchTabByName(name);
-}
-
-function switchTabByName(name) {
-  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   document.getElementById(name+"Section").classList.add("active");
-  if(name==="history") { loadLogs(); }
-  if(name==="guards")  { loadGuards(); }
+  if(name==="history") loadLogs();
+  if(name==="guards")  loadGuards();
 }
 
-// ── REGISTER ─────────────────────────────────────────────────────
 async function handleRut(input) {
-  const rut = formatRut(input.value); input.value = rut;
+  const rut = formatRut(input.value);
+  input.value = rut;
+  const msg = document.getElementById("rutFound");
   const fFirst = document.getElementById("fFirst");
   const fLast  = document.getElementById("fLast");
-  const msg    = document.getElementById("rutFound");
-  if(rut.length < 4) { fFirst.disabled=false; fLast.disabled=false; input.classList.remove("ok-border"); msg.classList.remove("show"); return; }
+  if(rut.length < 4){ fFirst.disabled=false; fLast.disabled=false; input.classList.remove("ok-border"); msg.classList.remove("show"); return; }
   try {
-    const res = await api.get("visitantes", `?rut=eq.${encodeURIComponent(rut)}&select=*`);
-    if(res.data.length > 0) {
-      const v = res.data[0];
-      fFirst.value=v.nombre; fFirst.disabled=true;
-      fLast.value=v.apellido; fLast.disabled=true;
+    const res = await sbGet("visitantes",`?rut=eq.${encodeURIComponent(rut)}&select=*`);
+    if(res.data.length>0){
+      fFirst.value=res.data[0].nombre; fFirst.disabled=true;
+      fLast.value=res.data[0].apellido; fLast.disabled=true;
       input.classList.add("ok-border"); msg.classList.add("show");
     } else {
       fFirst.disabled=false; fLast.disabled=false;
       input.classList.remove("ok-border"); msg.classList.remove("show");
     }
-  } catch(e) {}
+  } catch(e){}
 }
 
-function toggleVehicle() {
+function formatRut(v){ const c=v.replace(/[^0-9kK]/g,"").toUpperCase(); if(c.length<=1) return c; return c.slice(0,-1)+"-"+c.slice(-1); }
+
+function toggleVehicle(){
   const checked = document.getElementById("fVehicle").checked;
   const pf = document.getElementById("plateField");
-  checked ? pf.classList.remove("hidden") : (pf.classList.add("hidden"), document.getElementById("fPlate").value="");
+  if(checked) pf.classList.remove("hidden");
+  else { pf.classList.add("hidden"); document.getElementById("fPlate").value=""; }
 }
 
-function clearForm() {
-  ["fRut","fFirst","fLast","fUnit","fPlate","fObs"].forEach(id => document.getElementById(id).value="");
+function clearForm(){
+  document.getElementById("fRut").value="";
+  document.getElementById("fFirst").value=""; document.getElementById("fFirst").disabled=false;
+  document.getElementById("fLast").value="";  document.getElementById("fLast").disabled=false;
   document.getElementById("fType").value="";
+  document.getElementById("fUnit").value="";
   document.getElementById("fVehicle").checked=false;
+  document.getElementById("fPlate").value="";
+  document.getElementById("fObs").value="";
   document.getElementById("plateField").classList.add("hidden");
-  document.getElementById("fFirst").disabled=false;
-  document.getElementById("fLast").disabled=false;
   document.getElementById("fRut").classList.remove("ok-border");
   document.getElementById("rutFound").classList.remove("show");
-  document.getElementById("regErr").classList.remove("show");
   document.getElementById("regErr").textContent="";
+  document.getElementById("regErr").classList.remove("show");
 }
 
-async function submitRegister() {
-  const rut       = document.getElementById("fRut").value.trim();
-  const firstName = document.getElementById("fFirst").value.trim();
-  const lastName  = document.getElementById("fLast").value.trim();
-  const type      = document.getElementById("fType").value;
-  const unit      = document.getElementById("fUnit").value.trim();
-  const vehicle   = document.getElementById("fVehicle").checked;
-  const plate     = document.getElementById("fPlate").value.trim();
-  const errEl     = document.getElementById("regErr");
-  const btn       = document.getElementById("submitBtn");
+async function submitRegister(){
+  const rut   = document.getElementById("fRut").value.trim();
+  const first = document.getElementById("fFirst").value.trim();
+  const last  = document.getElementById("fLast").value.trim();
+  const type  = document.getElementById("fType").value;
+  const unit  = document.getElementById("fUnit").value.trim();
+  const veh   = document.getElementById("fVehicle").checked;
+  const plate = document.getElementById("fPlate").value.trim();
+  const obs   = document.getElementById("fObs").value.trim();
+  const errEl = document.getElementById("regErr");
+  const btn   = document.getElementById("submitBtn");
 
-  let err = "";
-  if(!rut||!firstName||!lastName) err="Nombre, apellido y RUT son obligatorios.";
+  let err="";
+  if(!rut||!first||!last) err="Nombre, apellido y RUT son obligatorios.";
   else if(!type) err="Selecciona el tipo de visita.";
-  else if(!unit) err="Ingresa el número de casa o departamento.";
-  else if(vehicle&&!plate) err="La patente es obligatoria si ingresa en vehículo.";
+  else if(!unit) err="Ingresa el número de casa.";
+  else if(veh&&!plate) err="La patente es obligatoria si ingresa en vehículo.";
   if(err){ errEl.textContent="⚠️ "+err; errEl.classList.add("show"); return; }
   errEl.classList.remove("show");
 
   btn.textContent="Guardando..."; btn.disabled=true;
-  console.log("OBS VALOR:", obs);
-  const { date, time } = nowDT();
+
+  const d = new Date();
+  const fecha = d.toISOString().slice(0,10);
+  const hora  = d.toTimeString().slice(0,5);
+
   try {
-    // Guardar visitante si no existe
-    const vRes = await api.get("visitantes", `?rut=eq.${encodeURIComponent(rut)}&select=id`);
-    if(vRes.data.length === 0) {
-      await api.post("visitantes", { rut, nombre: firstName, apellido: lastName });
+    const vRes = await sbGet("visitantes",`?rut=eq.${encodeURIComponent(rut)}&select=id`);
+    if(vRes.data.length===0){
+      await sbPost("visitantes",{rut, nombre:first, apellido:last});
     }
-    // Guardar acceso
-    await api.post("accesos", {
-      rut, nombre: firstName, apellido: lastName, tipo: type,
-      unidad: unit, vehiculo: vehicle, patente: plate||null,
-      guardia_id: currentGuard.id, guardia_nombre: currentGuard.nombre,
-      turno: currentGuard.turno, fecha: date, hora: time
+    await sbPost("accesos",{
+      rut, nombre:first, apellido:last, tipo:type,
+      unidad:unit, vehiculo:veh, patente:plate||null,
+      observacion:obs||null,
+      guardia_id:currentGuard.id, guardia_nombre:currentGuard.nombre,
+      turno:currentGuard.turno, fecha, hora
     });
     clearForm();
     const ok = document.getElementById("regOk");
     ok.classList.add("show");
-    setTimeout(() => ok.classList.remove("show"), 3000);
-  } catch(e) {
-    console.error("ERROR SUBMIT:", e);
-    errEl.textContent="⚠️ Error al guardar: " + (e.response?.data?.message || e.message || "intenta de nuevo");
+    setTimeout(()=>ok.classList.remove("show"),3000);
+  } catch(e){
+    console.error(e);
+    errEl.textContent="⚠️ Error al guardar: "+(e.response?.data?.message||e.message||"intenta de nuevo");
     errEl.classList.add("show");
-  } finally {
-    btn.textContent="✅ Registrar Ingreso"; btn.disabled=false;
   }
+  btn.textContent="✅ Registrar Ingreso"; btn.disabled=false;
 }
 
-// ── HISTORY ──────────────────────────────────────────────────────
-async function loadLogs() {
+async function loadLogs(){
   document.getElementById("logList").innerHTML='<p class="loading">⏳ Cargando registros...</p>';
   try {
-    const res = await api.get("accesos", "?select=*&order=created_at.desc");
+    const res = await sbGet("accesos","?select=*&order=created_at.desc");
     allLogs = res.data;
     renderStats();
     renderHistory();
-  } catch(e) {
+  } catch(e){
     document.getElementById("logList").innerHTML='<p class="empty">❌ Error al cargar registros.</p>';
   }
 }
 
-function clearFilters() {
+function clearFilters(){
   document.getElementById("searchInput").value="";
   document.getElementById("dateFilter").value="";
   renderHistory();
 }
 
-function renderStats() {
-  const total    = allLogs.length;
-  const visitas  = allLogs.filter(l=>l.tipo==="Visita").length;
-  const delivery = allLogs.filter(l=>l.tipo!=="Visita").length;
-  const vehiculos= allLogs.filter(l=>l.vehiculo).length;
-  document.getElementById("statsRow").innerHTML=[
-    [total,"Total"],[visitas,"Visitas"],[delivery,"Deliveries"],[vehiculos,"Vehículos"]
-  ].map(([n,l])=>`<div class="stat-pill"><div class="snum">${n}</div><div class="slbl">${l}</div></div>`).join("");
+function renderStats(){
+  const t=allLogs.length;
+  const v=allLogs.filter(l=>l.tipo==="Visita").length;
+  const dl=allLogs.filter(l=>l.tipo!=="Visita").length;
+  const vh=allLogs.filter(l=>l.vehiculo).length;
+  document.getElementById("statsRow").innerHTML=
+    [[t,"Total"],[v,"Visitas"],[dl,"Deliveries"],[vh,"Vehículos"]]
+    .map(([n,l])=>`<div class="stat-pill"><div class="snum">${n}</div><div class="slbl">${l}</div></div>`).join("");
 }
 
-function renderHistory() {
-  const q     = document.getElementById("searchInput").value.toLowerCase();
-  const dateF = document.getElementById("dateFilter").value;
-  const list  = document.getElementById("logList");
-  const filtered = allLogs.filter(l => {
-    const matchQ = !q || [l.nombre,l.apellido,l.rut,l.unidad,l.patente||""].join(" ").toLowerCase().includes(q);
-    const matchD = !dateF || l.fecha === dateF;
-    return matchQ && matchD;
+function renderHistory(){
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  const df= document.getElementById("dateFilter").value;
+  const filtered = allLogs.filter(l=>{
+    const mq = !q||[l.nombre,l.apellido,l.rut,l.unidad,l.patente||""].join(" ").toLowerCase().includes(q);
+    const md = !df||l.fecha===df;
+    return mq&&md;
   });
-  if(filtered.length===0){ list.innerHTML='<p class="empty">📭 Sin resultados para los filtros seleccionados</p>'; return; }
-  list.innerHTML = filtered.map(l=>`
+  if(filtered.length===0){ document.getElementById("logList").innerHTML='<p class="empty">📭 Sin resultados</p>'; return; }
+  document.getElementById("logList").innerHTML=filtered.map(l=>`
     <div class="log-card" style="border-left-color:${typeBorder(l.tipo)}">
       <div class="log-top">
         <span class="log-name">${l.nombre} ${l.apellido}</span>
@@ -415,44 +393,41 @@ function renderHistory() {
       <div class="log-info">
         🪪 ${l.rut} &nbsp;·&nbsp; 🏠 Casa N° ${l.unidad}<br/>
         ${l.vehiculo?`🚗 Patente: <b style="color:#111827">${l.patente}</b> &nbsp;·&nbsp; `:""}
-        📅 ${fmtDate(l.fecha)} ${l.hora ? l.hora.slice(0,5) : ""}<br/>
+        📅 ${fmtDate(l.fecha)} ${fmtTime(l.hora)}<br/>
         👮 ${l.guardia_nombre} · Turno ${l.turno}<br/>
-        📝 Observación: <i style="color:#374151">${l.observacion || "Sin observación"}</i>
+        📝 Observación: <i style="color:#374151">${l.observacion||"Sin observación"}</i>
       </div>
     </div>
   `).join("");
 }
 
-// ── GUARDS ───────────────────────────────────────────────────────
-async function loadGuards() {
+async function loadGuards(){
   document.getElementById("guardList").innerHTML='<p class="loading">⏳ Cargando...</p>';
   try {
-    const [gRes, lRes] = await Promise.all([
-      api.get("guardias","?select=*&activo=eq.true"),
-      api.get("accesos","?select=guardia_id,guardia_nombre,turno,nombre,apellido,unidad,fecha,hora&order=created_at.desc")
+    const [gRes,lRes] = await Promise.all([
+      sbGet("guardias","?select=*&activo=eq.true"),
+      sbGet("accesos","?select=guardia_id,guardia_nombre,turno,nombre,apellido,unidad,fecha,hora&order=created_at.desc")
     ]);
-    const guards = gRes.data;
-    const logs   = lRes.data;
-    document.getElementById("guardList").innerHTML = guards.map(g => {
-      const gl = logs.filter(l => l.guardia_id === g.id);
-      const items = gl.slice(0,3).map(l=>`<div class="guard-log-item">• ${l.nombre} ${l.apellido} → Depto ${l.unidad} · ${l.fecha} ${l.hora}</div>`).join("");
-      const more  = gl.length>3?`<div class="more">+${gl.length-3} más...</div>`:"";
+    const guards=gRes.data; const logs=lRes.data;
+    document.getElementById("guardList").innerHTML=guards.map(g=>{
+      const gl=logs.filter(l=>l.guardia_id===g.id);
+      const items=gl.slice(0,3).map(l=>`<div class="guard-log-item">• ${l.nombre} ${l.apellido} → Casa ${l.unidad} · ${fmtDate(l.fecha)} ${fmtTime(l.hora)}</div>`).join("");
+      const more=gl.length>3?`<div class="more">+${gl.length-3} más...</div>`:"";
       return `<div class="guard-card">
         <div class="guard-top">
-          <div><div class="guard-name">👮 ${g.nombre}</div><div class="guard-shift">${g.turno}</div></div>
+          <div><div class="guard-name">👮 ${g.nombre}</div><div class="guard-shift">Turno: ${g.turno}</div></div>
           <div class="guard-count"><div class="num">${gl.length}</div><div class="lbl">registros</div></div>
         </div>
         ${gl.length>0?`<div class="guard-logs">${items}${more}</div>`:""}
       </div>`;
     }).join("");
-  } catch(e) {
-    document.getElementById("guardList").innerHTML='<p class="empty">❌ Error al cargar guardias.</p>';
+  } catch(e){
+    document.getElementById("guardList").innerHTML='<p class="empty">❌ Error al cargar.</p>';
   }
 }
 
-// ── EVENTS ───────────────────────────────────────────────────────
-document.getElementById("loginPass").addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
-document.getElementById("loginUser").addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
+document.getElementById("loginUser").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
+document.getElementById("loginPass").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
 </script>
 </body>
 </html>
