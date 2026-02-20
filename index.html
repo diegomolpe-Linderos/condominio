@@ -359,7 +359,9 @@ async function submitRegister() {
     ok.classList.add("show");
     setTimeout(() => ok.classList.remove("show"), 3000);
   } catch(e) {
-    errEl.textContent="⚠️ Error al guardar. Intenta de nuevo."; errEl.classList.add("show");
+    console.error("ERROR SUBMIT:", e);
+    errEl.textContent="⚠️ Error al guardar: " + (e.response?.data?.message || e.message || "intenta de nuevo");
+    errEl.classList.add("show");
   } finally {
     btn.textContent="✅ Registrar Ingreso"; btn.disabled=false;
   }
