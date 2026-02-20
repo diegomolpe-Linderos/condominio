@@ -56,10 +56,13 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 .alert-err.show{display:block;}
 .found-msg{color:#057a55;font-size:12px;margin-top:4px;display:none;}
 .found-msg.show{display:block;}
+.history-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
 .filter-row{display:flex;gap:10px;margin-bottom:16px;}
 .filter-row input{flex:1;padding:10px 12px;border:1px solid #dde3f0;border-radius:9px;font-size:14px;outline:none;}
 .filter-row input[type=date]{color:#374151;}
 .clear-btn{padding:10px 14px;border-radius:9px;border:1px solid #dde3f0;background:#fff;color:#6b7280;font-size:13px;cursor:pointer;}
+.export-btn{padding:10px 16px;border-radius:9px;border:none;background:#057a55;color:#fff;font-weight:700;font-size:13px;cursor:pointer;}
+.export-btn:hover{background:#046c4e;}
 .log-card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(15,37,84,0.07);border-left:4px solid #0f2554;}
 .log-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
 .log-name{font-weight:700;font-size:16px;color:#111827;}
@@ -69,9 +72,7 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 .badge-delivery{background:#fef3c7;color:#d97706;border:1px solid #fcd34d;}
 .badge-encomienda{background:#d1fae5;color:#057a55;border:1px solid #6ee7b7;}
 .badge-otros{background:#ede9fe;color:#7c3aed;border:1px solid #c4b5fd;}
-.export-btn{padding:10px 16px;border-radius:9px;border:none;background:#057a55;color:#fff;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;}
-.export-btn:hover{background:#046c4e;}
-.history-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.empty{color:#6b7280;text-align:center;padding:30px 0;font-size:14px;}
 .loading{text-align:center;padding:30px 0;color:#6b7280;font-size:14px;}
 .stats-row{display:flex;gap:8px;margin-bottom:16px;}
 .stat-pill{flex:1;background:#fff;border-radius:10px;padding:10px 8px;text-align:center;box-shadow:0 2px 6px rgba(15,37,84,0.07);}
@@ -92,6 +93,7 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 </head>
 <body>
 
+<!-- LOGIN -->
 <div id="loginScreen">
   <div class="loginCard">
     <div class="loginLogo">
@@ -102,12 +104,13 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
     <div class="field"><label>Usuario</label><input id="loginUser" placeholder="ej: carlos"/></div>
     <div class="field"><label>Contraseña</label><input id="loginPass" type="password" placeholder="••••"/></div>
     <div id="loginErr" class="alert-err"></div>
-    <button class="btn btn-primary" id="loginBtn" onclick="doLogin()">Ingresar</button>
+    <button class="btn btn-primary" id="loginBtn">Ingresar</button>
     <p class="loginHint">Usuarios: carlos / pedro / luis · pass: 1234</p>
   </div>
   <div class="loginBrand">Desarrollado por <span>Linderos Digital</span></div>
 </div>
 
+<!-- APP -->
 <div id="appScreen" style="display:none;flex-direction:column;min-height:100vh;">
   <div id="header">
     <div class="headerTop">
@@ -116,23 +119,24 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
         <div class="headerName">Alto Sacramento 3</div>
         <div class="headerSub" id="guardInfo"></div>
       </div>
-      <button id="logoutBtn" onclick="doLogout()">Salir</button>
+      <button id="logoutBtn">Salir</button>
     </div>
   </div>
   <div id="tabs">
-    <button class="tab active" onclick="switchTab('register',this)">➕ Registrar</button>
-    <button class="tab" onclick="switchTab('history',this)">📋 Historial</button>
-    <button class="tab" onclick="switchTab('guards',this)">👮 Guardias</button>
+    <button class="tab active" id="tabRegister">➕ Registrar</button>
+    <button class="tab" id="tabHistory">📋 Historial</button>
+    <button class="tab" id="tabGuards">👮 Guardias</button>
   </div>
   <div id="content">
 
+    <!-- REGISTER -->
     <div id="registerSection" class="section active">
       <h3>Registrar Ingreso</h3>
       <div id="regOk" class="alert-ok">✅ Visita registrada exitosamente</div>
       <div class="card">
         <div class="field">
           <label>RUT <span class="req">*</span></label>
-          <input id="fRut" placeholder="ej: 12345678-9" oninput="handleRut(this)"/>
+          <input id="fRut" placeholder="ej: 12345678-9"/>
           <div id="rutFound" class="found-msg">✅ Visita encontrada en base de datos</div>
         </div>
         <div class="row">
@@ -152,37 +156,39 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
         <div class="field"><label>Casa N° <span class="req">*</span></label><input id="fUnit" placeholder="ej: 15"/></div>
         <div class="field">
           <label class="check-label">
-            <input type="checkbox" id="fVehicle" onchange="toggleVehicle()"/>
+            <input type="checkbox" id="fVehicle"/>
             ¿Ingresa en vehículo?
           </label>
         </div>
         <div class="field hidden" id="plateField">
           <label>Patente del vehículo <span class="req">*</span></label>
-          <input id="fPlate" placeholder="ej: AB-1234" oninput="this.value=this.value.toUpperCase()"/>
+          <input id="fPlate" placeholder="ej: AB-1234"/>
         </div>
         <div class="field">
           <label>Observación</label>
           <input id="fObs" placeholder="ej: Autorizado por propietario (opcional)"/>
         </div>
         <div id="regErr" class="alert-err"></div>
-        <button class="btn btn-primary" id="submitBtn" onclick="submitRegister()">✅ Registrar Ingreso</button>
+        <button class="btn btn-primary" id="submitBtn">✅ Registrar Ingreso</button>
       </div>
     </div>
 
+    <!-- HISTORY -->
     <div id="historySection" class="section">
       <div class="history-top">
         <h3 style="margin:0">Historial de Accesos</h3>
-        <button class="export-btn" onclick="exportExcel()">📊 Exportar Excel</button>
+        <button class="export-btn" id="exportBtn">📊 Exportar Excel</button>
       </div>
       <div class="stats-row" id="statsRow"></div>
       <div class="filter-row">
-        <input id="searchInput" placeholder="🔍 Nombre, RUT, casa, patente..." oninput="renderHistory()"/>
-        <input type="date" id="dateFilter" onchange="renderHistory()"/>
-        <button class="clear-btn" onclick="clearFilters()">✕</button>
+        <input id="searchInput" placeholder="🔍 Nombre, RUT, casa, patente..."/>
+        <input type="date" id="dateFilter"/>
+        <button class="clear-btn" id="clearBtn">✕</button>
       </div>
       <div id="logList"></div>
     </div>
 
+    <!-- GUARDS -->
     <div id="guardsSection" class="section">
       <h3>Panel de Guardias</h3>
       <div id="guardList"></div>
@@ -195,275 +201,273 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
 </div>
 
 <script>
-const SB_URL = "https://yksfifqdwzntybcnfafq.supabase.co";
-const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrc2ZpZnFkd3pudHliY25mYWZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NjQ1NTQsImV4cCI6MjA4NzA0MDU1NH0.NBuDK94ZrWrE9v3ers6iSwdD12eiIUbgOGs_Exxxv5w";
-const H = {"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=representation"};
+(function(){
+  // ── CONFIG ──────────────────────────────────────────────────────
+  var SB_URL = "https://yksfifqdwzntybcnfafq.supabase.co";
+  var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrc2ZpZnFkd3pudHliY25mYWZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NjQ1NTQsImV4cCI6MjA4NzA0MDU1NH0.NBuDK94ZrWrE9v3ers6iSwdD12eiIUbgOGs_Exxxv5w";
+  var H = {"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=representation"};
 
-const sbGet  = (t,q="") => axios.get(`${SB_URL}/rest/v1/${t}${q}`,{headers:H});
-const sbPost = (t,d)     => axios.post(`${SB_URL}/rest/v1/${t}`,d,{headers:H});
+  function sbGet(t,q){ return axios.get(SB_URL+"/rest/v1/"+t+(q||""),{headers:H}); }
+  function sbPost(t,d){ return axios.post(SB_URL+"/rest/v1/"+t,d,{headers:H}); }
 
-let currentGuard = null;
-let allLogs = [];
+  // ── STATE ────────────────────────────────────────────────────────
+  var guard = null;
+  var allLogs = [];
 
-const fmtDate = d => { if(!d) return ""; const p=d.split("-"); return p[2]+"-"+p[1]+"-"+p[0]; };
-const fmtTime = t => t ? t.slice(0,5) : "";
-const typeClass  = t => t==="Visita"?"badge-visita":t==="Delivery"?"badge-delivery":t==="Encomienda"?"badge-encomienda":"badge-otros";
-const typeBorder = t => t==="Visita"?"#1a56db":t==="Delivery"?"#d97706":t==="Encomienda"?"#057a55":"#7c3aed";
+  // ── HELPERS ──────────────────────────────────────────────────────
+  function fmtDate(d){ if(!d) return ""; var p=d.split("-"); return p[2]+"-"+p[1]+"-"+p[0]; }
+  function fmtTime(t){ return t ? t.slice(0,5) : ""; }
+  function formatRut(v){ var c=v.replace(/[^0-9kK]/g,"").toUpperCase(); if(c.length<=1) return c; return c.slice(0,-1)+"-"+c.slice(-1); }
+  function typeClass(t){ return t==="Visita"?"badge-visita":t==="Delivery"?"badge-delivery":t==="Encomienda"?"badge-encomienda":"badge-otros"; }
+  function typeBorder(t){ return t==="Visita"?"#1a56db":t==="Delivery"?"#d97706":t==="Encomienda"?"#057a55":"#7c3aed"; }
+  function el(id){ return document.getElementById(id); }
 
-function showApp(guard) {
-  currentGuard = guard;
-  document.getElementById("loginScreen").classList.add("hidden");
-  const app = document.getElementById("appScreen");
-  app.style.display = "flex";
-  document.getElementById("guardInfo").textContent = "👮 "+guard.nombre+" · Turno "+guard.turno;
-}
-
-function hideApp() {
-  currentGuard = null;
-  allLogs = [];
-  document.getElementById("loginScreen").classList.remove("hidden");
-  document.getElementById("appScreen").style.display = "none";
-}
-
-async function doLogin() {
-  const u = document.getElementById("loginUser").value.trim();
-  const p = document.getElementById("loginPass").value.trim();
-  const btn = document.getElementById("loginBtn");
-  const errEl = document.getElementById("loginErr");
-  if(!u||!p){ errEl.textContent="Ingresa usuario y contraseña."; errEl.classList.add("show"); return; }
-  btn.textContent="Verificando..."; btn.disabled=true;
-  try {
-    const res = await sbGet("guardias",`?username=eq.${u}&password=eq.${p}&activo=eq.true&select=*`);
-    if(res.data.length===0){ errEl.textContent="Usuario o contraseña incorrectos."; errEl.classList.add("show"); }
-    else { errEl.classList.remove("show"); showApp(res.data[0]); clearForm(); }
-  } catch(e) {
-    errEl.textContent="Error de conexión."; errEl.classList.add("show");
+  // ── LOGIN ────────────────────────────────────────────────────────
+  function doLogin(){
+    var u = el("loginUser").value.trim();
+    var p = el("loginPass").value.trim();
+    var btn = el("loginBtn");
+    var errEl = el("loginErr");
+    if(!u||!p){ errEl.textContent="Ingresa usuario y contraseña."; errEl.classList.add("show"); return; }
+    btn.textContent="Verificando..."; btn.disabled=true;
+    sbGet("guardias","?username=eq."+u+"&password=eq."+p+"&activo=eq.true&select=*")
+      .then(function(res){
+        if(res.data.length===0){
+          errEl.textContent="Usuario o contraseña incorrectos."; errEl.classList.add("show");
+        } else {
+          errEl.classList.remove("show");
+          guard = res.data[0];
+          el("loginScreen").classList.add("hidden");
+          el("appScreen").style.display="flex";
+          el("guardInfo").textContent="👮 "+guard.nombre+" · Turno "+guard.turno;
+          clearForm();
+        }
+      })
+      .catch(function(){ errEl.textContent="Error de conexión."; errEl.classList.add("show"); })
+      .finally(function(){ btn.textContent="Ingresar"; btn.disabled=false; });
   }
-  btn.textContent="Ingresar"; btn.disabled=false;
-}
 
-function doLogout() {
-  hideApp();
-  document.getElementById("loginUser").value="";
-  document.getElementById("loginPass").value="";
-  document.querySelectorAll(".tab")[0].click();
-}
+  function doLogout(){
+    guard=null; allLogs=[];
+    el("loginScreen").classList.remove("hidden");
+    el("appScreen").style.display="none";
+    el("loginUser").value=""; el("loginPass").value="";
+    showSection("register");
+    document.querySelectorAll(".tab").forEach(function(t){ t.classList.remove("active"); });
+    el("tabRegister").classList.add("active");
+  }
 
-function switchTab(name, btn) {
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  btn.classList.add("active");
-  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-  document.getElementById(name+"Section").classList.add("active");
-  if(name==="history") loadLogs();
-  if(name==="guards")  loadGuards();
-}
+  // ── TABS ─────────────────────────────────────────────────────────
+  function showSection(name){
+    document.querySelectorAll(".section").forEach(function(s){ s.classList.remove("active"); });
+    el(name+"Section").classList.add("active");
+    if(name==="history") loadLogs();
+    if(name==="guards") loadGuards();
+  }
 
-async function handleRut(input) {
-  const rut = formatRut(input.value);
-  input.value = rut;
-  const msg = document.getElementById("rutFound");
-  const fFirst = document.getElementById("fFirst");
-  const fLast  = document.getElementById("fLast");
-  if(rut.length < 4){ fFirst.disabled=false; fLast.disabled=false; input.classList.remove("ok-border"); msg.classList.remove("show"); return; }
-  try {
-    const res = await sbGet("visitantes",`?rut=eq.${encodeURIComponent(rut)}&select=*`);
-    if(res.data.length>0){
-      fFirst.value=res.data[0].nombre; fFirst.disabled=true;
-      fLast.value=res.data[0].apellido; fLast.disabled=true;
-      input.classList.add("ok-border"); msg.classList.add("show");
-    } else {
-      fFirst.disabled=false; fLast.disabled=false;
-      input.classList.remove("ok-border"); msg.classList.remove("show");
-    }
-  } catch(e){}
-}
+  // ── REGISTER ─────────────────────────────────────────────────────
+  function handleRut(){
+    var input = el("fRut");
+    var rut = formatRut(input.value);
+    input.value = rut;
+    var msg = el("rutFound");
+    var fFirst = el("fFirst"); var fLast = el("fLast");
+    if(rut.length<4){ fFirst.disabled=false; fLast.disabled=false; input.classList.remove("ok-border"); msg.classList.remove("show"); return; }
+    sbGet("visitantes","?rut=eq."+encodeURIComponent(rut)+"&select=*")
+      .then(function(res){
+        if(res.data.length>0){
+          fFirst.value=res.data[0].nombre; fFirst.disabled=true;
+          fLast.value=res.data[0].apellido; fLast.disabled=true;
+          input.classList.add("ok-border"); msg.classList.add("show");
+        } else {
+          fFirst.disabled=false; fLast.disabled=false;
+          input.classList.remove("ok-border"); msg.classList.remove("show");
+        }
+      }).catch(function(){});
+  }
 
-function formatRut(v){ const c=v.replace(/[^0-9kK]/g,"").toUpperCase(); if(c.length<=1) return c; return c.slice(0,-1)+"-"+c.slice(-1); }
+  function toggleVehicle(){
+    var checked = el("fVehicle").checked;
+    if(checked) el("plateField").classList.remove("hidden");
+    else { el("plateField").classList.add("hidden"); el("fPlate").value=""; }
+  }
 
-function toggleVehicle(){
-  const checked = document.getElementById("fVehicle").checked;
-  const pf = document.getElementById("plateField");
-  if(checked) pf.classList.remove("hidden");
-  else { pf.classList.add("hidden"); document.getElementById("fPlate").value=""; }
-}
+  function clearForm(){
+    ["fRut","fFirst","fLast","fUnit","fPlate","fObs"].forEach(function(id){ el(id).value=""; });
+    el("fType").value="";
+    el("fVehicle").checked=false;
+    el("fFirst").disabled=false; el("fLast").disabled=false;
+    el("plateField").classList.add("hidden");
+    el("fRut").classList.remove("ok-border");
+    el("rutFound").classList.remove("show");
+    el("regErr").textContent=""; el("regErr").classList.remove("show");
+  }
 
-function clearForm(){
-  document.getElementById("fRut").value="";
-  document.getElementById("fFirst").value=""; document.getElementById("fFirst").disabled=false;
-  document.getElementById("fLast").value="";  document.getElementById("fLast").disabled=false;
-  document.getElementById("fType").value="";
-  document.getElementById("fUnit").value="";
-  document.getElementById("fVehicle").checked=false;
-  document.getElementById("fPlate").value="";
-  document.getElementById("fObs").value="";
-  document.getElementById("plateField").classList.add("hidden");
-  document.getElementById("fRut").classList.remove("ok-border");
-  document.getElementById("rutFound").classList.remove("show");
-  document.getElementById("regErr").textContent="";
-  document.getElementById("regErr").classList.remove("show");
-}
+  function submitRegister(){
+    var rut   = el("fRut").value.trim();
+    var first = el("fFirst").value.trim();
+    var last  = el("fLast").value.trim();
+    var type  = el("fType").value;
+    var unit  = el("fUnit").value.trim();
+    var veh   = el("fVehicle").checked;
+    var plate = el("fPlate").value.trim();
+    var obs   = el("fObs").value.trim();
+    var errEl = el("regErr");
+    var btn   = el("submitBtn");
 
-async function submitRegister(){
-  const rut   = document.getElementById("fRut").value.trim();
-  const first = document.getElementById("fFirst").value.trim();
-  const last  = document.getElementById("fLast").value.trim();
-  const type  = document.getElementById("fType").value;
-  const unit  = document.getElementById("fUnit").value.trim();
-  const veh   = document.getElementById("fVehicle").checked;
-  const plate = document.getElementById("fPlate").value.trim();
-  const obs   = document.getElementById("fObs").value.trim();
-  const errEl = document.getElementById("regErr");
-  const btn   = document.getElementById("submitBtn");
+    var err="";
+    if(!rut||!first||!last) err="Nombre, apellido y RUT son obligatorios.";
+    else if(!type) err="Selecciona el tipo de visita.";
+    else if(!unit) err="Ingresa el número de casa.";
+    else if(veh&&!plate) err="La patente es obligatoria si ingresa en vehículo.";
+    if(err){ errEl.textContent="⚠️ "+err; errEl.classList.add("show"); return; }
+    errEl.classList.remove("show");
 
-  let err="";
-  if(!rut||!first||!last) err="Nombre, apellido y RUT son obligatorios.";
-  else if(!type) err="Selecciona el tipo de visita.";
-  else if(!unit) err="Ingresa el número de casa.";
-  else if(veh&&!plate) err="La patente es obligatoria si ingresa en vehículo.";
-  if(err){ errEl.textContent="⚠️ "+err; errEl.classList.add("show"); return; }
-  errEl.classList.remove("show");
+    btn.textContent="Guardando..."; btn.disabled=true;
 
-  btn.textContent="Guardando..."; btn.disabled=true;
+    var d = new Date();
+    var fecha = d.toISOString().slice(0,10);
+    var hora  = d.toTimeString().slice(0,5);
 
-  const d = new Date();
-  const fecha = d.toISOString().slice(0,10);
-  const hora  = d.toTimeString().slice(0,5);
+    sbGet("visitantes","?rut=eq."+encodeURIComponent(rut)+"&select=id")
+      .then(function(vRes){
+        var p = vRes.data.length===0 ? sbPost("visitantes",{rut:rut,nombre:first,apellido:last}) : Promise.resolve();
+        return p;
+      })
+      .then(function(){
+        return sbPost("accesos",{
+          rut:rut, nombre:first, apellido:last, tipo:type,
+          unidad:unit, vehiculo:veh, patente:plate||null,
+          observacion:obs||null,
+          guardia_id:guard.id, guardia_nombre:guard.nombre,
+          turno:guard.turno, fecha:fecha, hora:hora
+        });
+      })
+      .then(function(){
+        clearForm();
+        el("regOk").classList.add("show");
+        setTimeout(function(){ el("regOk").classList.remove("show"); },3000);
+      })
+      .catch(function(e){
+        errEl.textContent="⚠️ Error al guardar: "+(e.response&&e.response.data&&e.response.data.message?e.response.data.message:e.message||"intenta de nuevo");
+        errEl.classList.add("show");
+      })
+      .finally(function(){ btn.textContent="✅ Registrar Ingreso"; btn.disabled=false; });
+  }
 
-  try {
-    const vRes = await sbGet("visitantes",`?rut=eq.${encodeURIComponent(rut)}&select=id`);
-    if(vRes.data.length===0){
-      await sbPost("visitantes",{rut, nombre:first, apellido:last});
-    }
-    await sbPost("accesos",{
-      rut, nombre:first, apellido:last, tipo:type,
-      unidad:unit, vehiculo:veh, patente:plate||null,
-      observacion:obs||null,
-      guardia_id:currentGuard.id, guardia_nombre:currentGuard.nombre,
-      turno:currentGuard.turno, fecha, hora
+  // ── HISTORY ──────────────────────────────────────────────────────
+  function loadLogs(){
+    el("logList").innerHTML='<p class="loading">⏳ Cargando registros...</p>';
+    sbGet("accesos","?select=*&order=created_at.desc")
+      .then(function(res){ allLogs=res.data; renderStats(); renderHistory(); })
+      .catch(function(){ el("logList").innerHTML='<p class="empty">❌ Error al cargar registros.</p>'; });
+  }
+
+  function clearFilters(){ el("searchInput").value=""; el("dateFilter").value=""; renderHistory(); }
+
+  function getFiltered(){
+    var q  = el("searchInput").value.toLowerCase();
+    var df = el("dateFilter").value;
+    return allLogs.filter(function(l){
+      var mq = !q||[l.nombre,l.apellido,l.rut,l.unidad,l.patente||""].join(" ").toLowerCase().indexOf(q)>-1;
+      var md = !df||l.fecha===df;
+      return mq&&md;
     });
-    clearForm();
-    const ok = document.getElementById("regOk");
-    ok.classList.add("show");
-    setTimeout(()=>ok.classList.remove("show"),3000);
-  } catch(e){
-    console.error(e);
-    errEl.textContent="⚠️ Error al guardar: "+(e.response?.data?.message||e.message||"intenta de nuevo");
-    errEl.classList.add("show");
   }
-  btn.textContent="✅ Registrar Ingreso"; btn.disabled=false;
-}
 
-function exportExcel(){
-  const q  = document.getElementById("searchInput").value.toLowerCase();
-  const df = document.getElementById("dateFilter").value;
-  const filtered = allLogs.filter(l=>{
-    const mq = !q||[l.nombre,l.apellido,l.rut,l.unidad,l.patente||""].join(" ").toLowerCase().includes(q);
-    const md = !df||l.fecha===df;
-    return mq&&md;
-  });
-  if(filtered.length===0){ alert("No hay registros para exportar."); return; }
-  const data = filtered.map(l=>({
-    "Fecha":        fmtDate(l.fecha),
-    "Hora":         fmtTime(l.hora),
-    "Nombre":       l.nombre,
-    "Apellido":     l.apellido,
-    "RUT":          l.rut,
-    "Tipo":         l.tipo,
-    "Casa N°":      l.unidad,
-    "Vehículo":     l.vehiculo?"Sí":"No",
-    "Patente":      l.patente||"",
-    "Guardia":      l.guardia_nombre,
-    "Turno":        l.turno,
-    "Observación":  l.observacion||""
-  }));
-  const ws = XLSX.utils.json_to_sheet(data);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Accesos");
-  const fecha = new Date().toISOString().slice(0,10);
-  XLSX.writeFile(wb, `Accesos_AltoSacramento3_${fecha}.xlsx`);
-}
-
-
-  document.getElementById("logList").innerHTML='<p class="loading">⏳ Cargando registros...</p>';
-  try {
-    const res = await sbGet("accesos","?select=*&order=created_at.desc");
-    allLogs = res.data;
-    renderStats();
-    renderHistory();
-  } catch(e){
-    document.getElementById("logList").innerHTML='<p class="empty">❌ Error al cargar registros.</p>';
+  function renderStats(){
+    var t=allLogs.length, v=allLogs.filter(function(l){return l.tipo==="Visita";}).length;
+    var dl=allLogs.filter(function(l){return l.tipo!=="Visita";}).length;
+    var vh=allLogs.filter(function(l){return l.vehiculo;}).length;
+    el("statsRow").innerHTML=[[t,"Total"],[v,"Visitas"],[dl,"Deliveries"],[vh,"Vehículos"]]
+      .map(function(x){return '<div class="stat-pill"><div class="snum">'+x[0]+'</div><div class="slbl">'+x[1]+'</div></div>';}).join("");
   }
-}
 
-function clearFilters(){
-  document.getElementById("searchInput").value="";
-  document.getElementById("dateFilter").value="";
-  renderHistory();
-}
+  function renderHistory(){
+    var filtered = getFiltered();
+    if(filtered.length===0){ el("logList").innerHTML='<p class="empty">📭 Sin resultados</p>'; return; }
+    el("logList").innerHTML=filtered.map(function(l){
+      return '<div class="log-card" style="border-left-color:'+typeBorder(l.tipo)+'">'
+        +'<div class="log-top"><span class="log-name">'+l.nombre+' '+l.apellido+'</span>'
+        +'<span class="badge '+typeClass(l.tipo)+'">'+l.tipo+'</span></div>'
+        +'<div class="log-info">'
+        +'🪪 '+l.rut+' &nbsp;·&nbsp; 🏠 Casa N° '+l.unidad+'<br/>'
+        +(l.vehiculo?'🚗 Patente: <b style="color:#111827">'+l.patente+'</b> &nbsp;·&nbsp; ':"")
+        +'📅 '+fmtDate(l.fecha)+' '+fmtTime(l.hora)+'<br/>'
+        +'👮 '+l.guardia_nombre+' · Turno '+l.turno+'<br/>'
+        +'📝 Observación: <i style="color:#374151">'+(l.observacion||"Sin observación")+'</i>'
+        +'</div></div>';
+    }).join("");
+  }
 
-function renderStats(){
-  const t=allLogs.length;
-  const v=allLogs.filter(l=>l.tipo==="Visita").length;
-  const dl=allLogs.filter(l=>l.tipo!=="Visita").length;
-  const vh=allLogs.filter(l=>l.vehiculo).length;
-  document.getElementById("statsRow").innerHTML=
-    [[t,"Total"],[v,"Visitas"],[dl,"Deliveries"],[vh,"Vehículos"]]
-    .map(([n,l])=>`<div class="stat-pill"><div class="snum">${n}</div><div class="slbl">${l}</div></div>`).join("");
-}
+  function exportExcel(){
+    var filtered = getFiltered();
+    if(filtered.length===0){ alert("No hay registros para exportar."); return; }
+    var data = filtered.map(function(l){
+      return {
+        "Fecha":       fmtDate(l.fecha),
+        "Hora":        fmtTime(l.hora),
+        "Nombre":      l.nombre,
+        "Apellido":    l.apellido,
+        "RUT":         l.rut,
+        "Tipo":        l.tipo,
+        "Casa N°":     l.unidad,
+        "Vehículo":    l.vehiculo?"Sí":"No",
+        "Patente":     l.patente||"",
+        "Guardia":     l.guardia_nombre,
+        "Turno":       l.turno,
+        "Observación": l.observacion||""
+      };
+    });
+    var ws = XLSX.utils.json_to_sheet(data);
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Accesos");
+    var fecha = new Date().toISOString().slice(0,10);
+    XLSX.writeFile(wb, "Accesos_AltoSacramento3_"+fecha+".xlsx");
+  }
 
-function renderHistory(){
-  const q = document.getElementById("searchInput").value.toLowerCase();
-  const df= document.getElementById("dateFilter").value;
-  const filtered = allLogs.filter(l=>{
-    const mq = !q||[l.nombre,l.apellido,l.rut,l.unidad,l.patente||""].join(" ").toLowerCase().includes(q);
-    const md = !df||l.fecha===df;
-    return mq&&md;
-  });
-  if(filtered.length===0){ document.getElementById("logList").innerHTML='<p class="empty">📭 Sin resultados</p>'; return; }
-  document.getElementById("logList").innerHTML=filtered.map(l=>`
-    <div class="log-card" style="border-left-color:${typeBorder(l.tipo)}">
-      <div class="log-top">
-        <span class="log-name">${l.nombre} ${l.apellido}</span>
-        <span class="badge ${typeClass(l.tipo)}">${l.tipo}</span>
-      </div>
-      <div class="log-info">
-        🪪 ${l.rut} &nbsp;·&nbsp; 🏠 Casa N° ${l.unidad}<br/>
-        ${l.vehiculo?`🚗 Patente: <b style="color:#111827">${l.patente}</b> &nbsp;·&nbsp; `:""}
-        📅 ${fmtDate(l.fecha)} ${fmtTime(l.hora)}<br/>
-        👮 ${l.guardia_nombre} · Turno ${l.turno}<br/>
-        📝 Observación: <i style="color:#374151">${l.observacion||"Sin observación"}</i>
-      </div>
-    </div>
-  `).join("");
-}
-
-async function loadGuards(){
-  document.getElementById("guardList").innerHTML='<p class="loading">⏳ Cargando...</p>';
-  try {
-    const [gRes,lRes] = await Promise.all([
+  // ── GUARDS ───────────────────────────────────────────────────────
+  function loadGuards(){
+    el("guardList").innerHTML='<p class="loading">⏳ Cargando...</p>';
+    Promise.all([
       sbGet("guardias","?select=*&activo=eq.true"),
       sbGet("accesos","?select=guardia_id,guardia_nombre,turno,nombre,apellido,unidad,fecha,hora&order=created_at.desc")
-    ]);
-    const guards=gRes.data; const logs=lRes.data;
-    document.getElementById("guardList").innerHTML=guards.map(g=>{
-      const gl=logs.filter(l=>l.guardia_id===g.id);
-      const items=gl.slice(0,3).map(l=>`<div class="guard-log-item">• ${l.nombre} ${l.apellido} → Casa ${l.unidad} · ${fmtDate(l.fecha)} ${fmtTime(l.hora)}</div>`).join("");
-      const more=gl.length>3?`<div class="more">+${gl.length-3} más...</div>`:"";
-      return `<div class="guard-card">
-        <div class="guard-top">
-          <div><div class="guard-name">👮 ${g.nombre}</div><div class="guard-shift">Turno: ${g.turno}</div></div>
-          <div class="guard-count"><div class="num">${gl.length}</div><div class="lbl">registros</div></div>
-        </div>
-        ${gl.length>0?`<div class="guard-logs">${items}${more}</div>`:""}
-      </div>`;
-    }).join("");
-  } catch(e){
-    document.getElementById("guardList").innerHTML='<p class="empty">❌ Error al cargar.</p>';
+    ]).then(function(res){
+      var guards=res[0].data; var logs=res[1].data;
+      el("guardList").innerHTML=guards.map(function(g){
+        var gl=logs.filter(function(l){return l.guardia_id===g.id;});
+        var items=gl.slice(0,3).map(function(l){
+          return '<div class="guard-log-item">• '+l.nombre+' '+l.apellido+' → Casa '+l.unidad+' · '+fmtDate(l.fecha)+' '+fmtTime(l.hora)+'</div>';
+        }).join("");
+        var more=gl.length>3?'<div class="more">+'+(gl.length-3)+' más...</div>':"";
+        return '<div class="guard-card"><div class="guard-top">'
+          +'<div><div class="guard-name">👮 '+g.nombre+'</div><div class="guard-shift">Turno: '+g.turno+'</div></div>'
+          +'<div class="guard-count"><div class="num">'+gl.length+'</div><div class="lbl">registros</div></div>'
+          +'</div>'+(gl.length>0?'<div class="guard-logs">'+items+more+'</div>':"")+'</div>';
+      }).join("");
+    }).catch(function(){ el("guardList").innerHTML='<p class="empty">❌ Error al cargar.</p>'; });
   }
-}
 
-document.getElementById("loginUser").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
-document.getElementById("loginPass").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
+  // ── EVENTS ───────────────────────────────────────────────────────
+  window.addEventListener("load", function(){
+    el("loginBtn").addEventListener("click", doLogin);
+    el("logoutBtn").addEventListener("click", doLogout);
+    el("loginUser").addEventListener("keydown", function(e){ if(e.key==="Enter") doLogin(); });
+    el("loginPass").addEventListener("keydown", function(e){ if(e.key==="Enter") doLogin(); });
+    el("fRut").addEventListener("input", handleRut);
+    el("fVehicle").addEventListener("change", toggleVehicle);
+    el("fPlate").addEventListener("input", function(){ this.value=this.value.toUpperCase(); });
+    el("submitBtn").addEventListener("click", submitRegister);
+    el("searchInput").addEventListener("input", renderHistory);
+    el("dateFilter").addEventListener("change", renderHistory);
+    el("clearBtn").addEventListener("click", clearFilters);
+    el("exportBtn").addEventListener("click", exportExcel);
+    el("tabRegister").addEventListener("click", function(){ document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active");}); this.classList.add("active"); showSection("register"); });
+    el("tabHistory").addEventListener("click",  function(){ document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active");}); this.classList.add("active"); showSection("history"); });
+    el("tabGuards").addEventListener("click",   function(){ document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active");}); this.classList.add("active"); showSection("guards"); });
+  });
+
+})();
 </script>
 </body>
 </html>
