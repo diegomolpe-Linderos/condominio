@@ -230,7 +230,7 @@ h3{color:#0f2554;margin:8px 0 16px;font-size:17px;font-weight:700;}
     var errEl = el("loginErr");
     if(!u||!p){ errEl.textContent="Ingresa usuario y contraseña."; errEl.classList.add("show"); return; }
     btn.textContent="Verificando..."; btn.disabled=true;
-    sbGet("guardias","?username=eq."+u+"&password=eq."+p+"&activo=eq.true&select=*")
+    axios.post(SB_URL+"/rest/v1/rpc/verificar_guardia",{p_username:u,p_password:p},{headers:H})
       .then(function(res){
         if(res.data.length===0){
           errEl.textContent="Usuario o contraseña incorrectos."; errEl.classList.add("show");
